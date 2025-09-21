@@ -49,6 +49,7 @@ function useBreadcrumb() {
 }
 
 // Create a wrapper component to use the breadcrumb hook
+
 function AppContent() {
   const [theme, setTheme] = useState("light");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -67,8 +68,24 @@ function AppContent() {
     setNotificationOpen(false);
   };
 
+  useEffect(() => {
+    // Set theme attribute on document element
+    document.documentElement.setAttribute('data-theme', theme);
+    
+    // Your existing theme logic
+    const layout = document.querySelector(".ant-layout");
+    if (layout) layout.style.backgroundColor = theme === "dark" ? "rgba(28,28,28,1)" : "#ffffff";
+
+    const content = document.querySelector(".ant-layout-content");
+    if (content) content.style.backgroundColor = theme === "dark" ? "rgba(28,28,28,1)" : "#ffffff";
+  }, [theme]);
+
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout style={{
+      minHeight: "100vh",
+      backgroundColor: theme === "dark" ? "rgba(28,28,28,1)" : "#ffffff",
+      transition: "background-color 0.3s ease"
+    }}>
       <Sidebar 
         theme={theme} 
         collapsed={sidebarCollapsed}
@@ -80,7 +97,7 @@ function AppContent() {
           onToggleSidebar={toggleSidebar}
           onToggleNotification={toggleNotification}
           notificationOpen={notificationOpen}
-          breadcrumb={breadcrumb} // Pass breadcrumb data to Headerbar
+          breadcrumb={breadcrumb}
         />
         <Content 
           style={{ 

@@ -31,7 +31,7 @@ const RevenueLocationMap = ({ theme = "light" }) => {
 
   return (
     <div style={{
-      backgroundColor: theme === 'dark' ? '#1f2937' : 'rgba(247, 249, 251, 1)',
+      backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(247, 249, 251, 1)',
       padding: '24px',
       borderRadius: '16px',
       width: '100%',
@@ -41,7 +41,7 @@ const RevenueLocationMap = ({ theme = "light" }) => {
       {/* Header */}
       <h3 style={{
         fontWeight: '600',
-        color: theme === 'dark' ? '#ffffff' : 'rgba(28, 28, 28, 1)',
+        color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)',
         margin: '0 0 16px 0',
         lineHeight: '1.2'
       }}>
@@ -62,8 +62,8 @@ const RevenueLocationMap = ({ theme = "light" }) => {
             height: '82px',
             maxHeight: '100px',
             objectFit: 'contain',
-            filter: theme === 'dark' ? 'brightness(0.8) contrast(1.1)' : 'brightness(0.9)',
-            opacity: theme === 'dark' ? 0.9 : 0.7
+            filter: theme === 'dark' ? 'brightness(1) contrast(1.2)' : 'brightness(0.9)',
+            opacity: theme === 'dark' ? 1 : 0.7
           }}
         />
         
@@ -76,7 +76,7 @@ const RevenueLocationMap = ({ theme = "light" }) => {
               ...location.dotPosition,
               width: '8px',
               height: '8px',
-              backgroundColor: 'rgba(28, 28, 28, 1)',
+              backgroundColor: `${theme === 'dark' ?'rgba(255, 255, 255, 1)':'rgba(28, 28, 28, 1)'}`,
               borderRadius: '50%',
               border: `2px solid ${theme === 'dark' ? '#ffffff' : '#ffffff'}`,
               boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
@@ -100,11 +100,13 @@ const RevenueLocationMap = ({ theme = "light" }) => {
             }}>
               <span style={{
                 fontSize: '12px',
+                color:`${theme === 'dark' ?'rgba(255, 255, 255, 1)':'rgba(28, 28, 28, 1)'}`
               }}>
                 {location.city}
               </span>
               <span style={{
                 fontSize: '12px',
+                color:`${theme === 'dark' ?'rgba(255, 255, 255, 1)':'rgba(28, 28, 28, 1)'}`
               }}>
                 {location.revenue}
               </span>
@@ -114,7 +116,7 @@ const RevenueLocationMap = ({ theme = "light" }) => {
             <div style={{
               width: '100%',
               height: '4px',
-              backgroundColor: theme === 'dark' ? '#4b5563' : 'rgba(168, 197, 218, 0.5)',
+              backgroundColor: theme === 'dark' ? 'rgba(168, 197, 218, 0.5)' : 'rgba(168, 197, 218, 0.5)',
               borderRadius: '2px',
               overflow: 'hidden'
             }}>

@@ -17,43 +17,10 @@ const MetricsCards = ({ theme = "light" }) => {
   );
   
   const metrics = [
-    {
-      id: 1,
-      title: "Customers",
-      value: "3,781",
-      change: "+11.01%",
-      isPositive: true,
-      bgColor: theme === "dark" ? "#1e3a5f" : "rgba(227, 245, 255, 1)",
-      clickable: false
-    },
-    {
-      id: 2,
-      title: "Orders", 
-      value: "1,219",
-      change: "-0.03%",
-      isPositive: false,
-      bgColor: theme === "dark" ? "#2d2d2d" : "rgba(247, 249, 251, 1)",
-      clickable: true,
-      path: "/orders"
-    },
-    {
-      id: 3,
-      title: "Revenue",
-      value: "$695",
-      change: "+15.03%", 
-      isPositive: true,
-      bgColor: theme === "dark" ? "#2d2d2d" : "rgba(247, 249, 251, 1)",
-      clickable: false
-    },
-    {
-      id: 4,
-      title: "Growth",
-      value: "30.1%",
-      change: "+6.08%",
-      isPositive: true,
-      bgColor: theme === "dark" ? "#1e3a5f" : "rgba(229, 236, 246, 1)",
-      clickable: false
-    }
+    { id: 1, title: "Customers", value: "3,781", change: "+11.01%", isPositive: true, bgColor: "rgba(227, 245, 255, 1)", clickable: false },
+    { id: 2, title: "Orders", value: "1,219", change: "-0.03%", isPositive: false, bgColor: theme === "dark" ? "rgba(255, 255, 255, 0.05)" : "rgba(247, 249, 251, 1)", clickable: true, path: "/orders" },
+    { id: 3, title: "Revenue", value: "$695", change: "+15.03%", isPositive: true, bgColor: theme === "dark" ? "rgba(255, 255, 255, 0.05)" : "rgba(247, 249, 251, 1)", clickable: false },
+    { id: 4, title: "Growth", value: "30.1%", change: "+6.08%", isPositive: true, bgColor: "rgba(229, 236, 246, 1)", clickable: false }
   ];
 
   const handleCardClick = (metric) => {
@@ -62,12 +29,13 @@ const MetricsCards = ({ theme = "light" }) => {
     }
   };
 
+  // Helper to determine text color
+  const getTextColor = (metricId) => theme === "light" || metricId === 1 || metricId === 4
+    ? 'rgba(28, 28, 28, 1)'
+    : 'rgba(255, 255, 255, 1)';
+
   return (
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(2, 1fr)',
-      gap: '28px',
-    }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '28px' }}>
       {metrics.map((metric) => (
         <div
           key={metric.id}
@@ -96,46 +64,16 @@ const MetricsCards = ({ theme = "light" }) => {
           onClick={() => handleCardClick(metric)}
         >
           {/* Title */}
-          <h3 style={{
-            margin: '0 0 12px 0',
-            fontSize: '16px',
-            fontWeight: '500',
-            color: theme === "dark" ? '#e2e8f0' : 'rgba(28, 28, 28, 1)',
-            lineHeight: '1.2'
-          }}>
+          <h3 style={{ margin: '0 0 12px 0', fontSize: '16px', fontWeight: '500', color: getTextColor(metric.id), lineHeight: '1.2' }}>
             {metric.title}
           </h3>
 
           {/* Value and Change */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'flex-end',
-            justifyContent: 'space-between',
-            marginTop: 'auto'
-          }}>
-            {/* Main Value */}
-            <div style={{
-              fontSize: '36px',
-              fontWeight: '700',
-              color: theme === "dark" ? '#ffffff' : 'rgba(28, 28, 28, 1)',
-              lineHeight: '1',
-              letterSpacing: '-0.025em'
-            }}>
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: 'auto' }}>
+            <div style={{ fontSize: '36px', fontWeight: '700', color: getTextColor(metric.id), lineHeight: '1', letterSpacing: '-0.025em' }}>
               {metric.value}
             </div>
-
-            {/* Change Percentage */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px',
-              fontSize: '14px',
-              fontWeight: '500',
-              color: metric.isPositive 
-                ? (theme === "dark" ? '#4ade80' : 'rgba(28, 28, 28, 1)')
-                : (theme === "dark" ? '#f87171' : 'rgba(28, 28, 28, 1)'),
-              marginBottom: '4px'
-            }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '14px', fontWeight: '500', color: getTextColor(metric.id), marginBottom: '4px' }}>
               <span>{metric.change}</span>
               {metric.isPositive ? <UpIcon /> : <DownIcon />}
             </div>

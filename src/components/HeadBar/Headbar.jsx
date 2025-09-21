@@ -67,7 +67,8 @@ export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNo
           className={`header-button ${theme}`}
           onClick={onToggleSidebar}
         >
-          <SidePanelLeftIcon className="header-icon" />
+          <SidePanelLeftIcon className="header-icon" style={{fill: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)",
+    stroke: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)"}} />
         </button>
         {/* Star/Favorite Icon */}
         <button 
@@ -76,14 +77,17 @@ export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNo
           title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
           style={{ 
             backgroundColor: isFavorite ? 'rgba(255, 193, 7, 0.2)' : 'transparent',
-            borderColor: isFavorite ? '#ffc107' : 'transparent'
+            borderColor: isFavorite ? '#ffc107' : 'transparent',
+            
           }}
         >
           <StarIcon 
             className="header-icon" 
             style={{ 
               fill: isFavorite ? '#ffc107' : 'currentColor',
-              stroke: isFavorite ? '#ffc107' : 'currentColor'
+              stroke: isFavorite ? '#ffc107' : 'currentColor',
+              fill: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)",
+              stroke: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)"
             }}
           />
         </button>
@@ -100,7 +104,8 @@ export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNo
       <div className="header-center">
         <Input
           placeholder="Search"
-          prefix={<SearchIcon className="search-icon" />}
+          prefix={<SearchIcon className="search-icon" style={{fill: theme === "light" ? "inherit" : "rgba(255, 255, 255, 0.2)",
+              stroke: theme === "light" ? "inherit" : "rgba(255, 255, 255, 0.2)"}}/>}
           suffix={
             <span className={`search-shortcut ${theme}`}>
               ⌘/
@@ -116,18 +121,21 @@ export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNo
           onClick={() => setTheme(theme === "light" ? "dark" : "light")}
           className={`header-action-button ${theme}`}
         >
-          <SunIcon className="header-icon" />
+          <SunIcon className="header-icon" style={{fill: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)",
+    stroke: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)"}}/>
         </button>
         {/* History/Clock Icon */}
         <button className={`header-action-button ${theme}`} onClick={handleRefresh}>
-          <RefreshIcon className="header-icon" />
+          <RefreshIcon className="header-icon" style={{fill: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)",
+    stroke: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)"}}/>
         </button>
         {/* Notifications */}
         <button 
           className={`header-action-button notification-button ${theme}`}
           onClick={onToggleNotification}
         >
-          <BellIcon className="header-icon" />
+          <BellIcon className="header-icon" style={{fill: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)",
+    stroke: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)"}}/>
           {/* Notification badge */}
           <span className={`notification-badge ${theme}`}></span>
         </button>
@@ -136,7 +144,8 @@ export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNo
           className={`header-action-button ${theme}`}
           onClick={onToggleNotification}
         >
-          <SidePanelRightIcon className="header-icon" />
+          <SidePanelRightIcon className="header-icon" style={{fill: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)",
+    stroke: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)"}}/>
         </button>
       </div>
     </Header>

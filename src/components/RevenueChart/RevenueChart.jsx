@@ -25,10 +25,9 @@ const RevenueChart = ({ theme = "light" }) => {
 
   return (
     <div style={{
-      backgroundColor: theme === 'dark' ? '#1f2937' : 'rgba(247, 249, 251, 1)',
+      backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(247, 249, 251, 1)',
       padding: '24px',
       borderRadius: '16px',
-      border: theme === 'dark' ? '1px solid #374151' : '1px solid #e5e7eb',
       width: '100%',
       height: '318px',
     }}>
@@ -40,15 +39,15 @@ const RevenueChart = ({ theme = "light" }) => {
         flexWrap: 'wrap',
         gap: '16px'
       }}>
-        <h2 style={{
+        <h3 style={{
           fontWeight: '600',
-          color: theme === 'dark' ? '#ffffff' : '#1f2937',
+          color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)',
           margin: '0',
           lineHeight: '1.2'
         }}>
           Revenue
-        </h2> 
-        <div style={{fontSize:'14px',color:'rgba(28, 28, 28, 0.2)'}}>
+        </h3> 
+        <div style={{fontSize:'14px',color:theme === 'dark' ? 'rgba(255, 255, 255, 0.2)' :'rgba(28, 28, 28, 0.2)'}}>
             |
         </div>
         {/* Legend */}
@@ -66,11 +65,11 @@ const RevenueChart = ({ theme = "light" }) => {
               width: '8px',
               height: '8px',
               borderRadius: '50%',
-              backgroundColor: 'rgba(28, 28, 28, 1)'
+              backgroundColor: theme === 'dark' ? 'rgba(198, 199, 248, 1)' :'rgba(28, 28, 28, 1)'
             }} />
             <span style={{
               fontSize: '12px',
-              color: theme === 'dark' ? '#d1d5db' : 'rgba(28, 28, 28, 1)',
+              color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)',
             }}>
               Current Week <span style={{ fontWeight: '600' }}>$58,211</span>
             </span>
@@ -85,11 +84,11 @@ const RevenueChart = ({ theme = "light" }) => {
               width: '8px',
               height: '8px',
               borderRadius: '50%',
-              backgroundColor: 'rgba(168, 197, 218, 1)'
+              backgroundColor: theme === 'dark' ? 'rgba(168, 197, 218, 1)' : 'rgba(168, 197, 218, 1)'
             }} />
             <span style={{
               fontSize: '12px',
-              color: theme === 'dark' ? '#d1d5db' : 'rgba(28, 28, 28, 1)',
+              color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)',
             }}>
               Previous Week <span style={{ fontWeight: '600' }}>$68,768</span>
             </span>
@@ -123,7 +122,7 @@ const RevenueChart = ({ theme = "light" }) => {
               tickLine={false}
               tick={{
                 fontSize: 12,
-                fill: theme === 'dark' ? '#9ca3af' : 'rgba(28, 28, 28, 0.4)',
+                fill: theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)',
               }}
               dy={10}
             />
@@ -136,7 +135,7 @@ const RevenueChart = ({ theme = "light" }) => {
               tickLine={false}
               tick={{
                 fontSize: 12,
-                fill: theme === 'dark' ? '#9ca3af' : 'rgba(28, 28, 28, 0.4)',
+                fill: theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)',
               }}
               dx={-20}
             />
@@ -145,7 +144,7 @@ const RevenueChart = ({ theme = "light" }) => {
             <Line 
               type="monotone"
               dataKey="previousWeek"
-              stroke="rgba(168, 197, 218, 1)"
+              stroke= {theme === 'dark' ? 'rgba(168, 197, 218, 1)':'rgba(168, 197, 218, 1)'}
               strokeWidth={3}
               dot={false}
               activeDot={{ r: 4, fill: 'rgba(168, 197, 218, 1)' }}
@@ -155,10 +154,10 @@ const RevenueChart = ({ theme = "light" }) => {
             <Line 
               type="monotone"
               dataKey="currentWeekSolid"
-              stroke="rgba(28, 28, 28, 1)"
+              stroke={theme === 'dark' ? 'rgba(198, 199, 248, 1)':'rgba(28, 28, 28, 1)'}
               strokeWidth={3}
               dot={false}
-              activeDot={{ r: 4, fill: 'rgba(28, 28, 28, 1)' }}
+              activeDot={{ r: 4, fill: 'rgba(198, 199, 248, 1)' }}
               connectNulls={false}
             />
             
@@ -166,11 +165,11 @@ const RevenueChart = ({ theme = "light" }) => {
             <Line 
               type="monotone"
               dataKey="currentWeekDashed"
-              stroke="rgba(28, 28, 28, 1)"
+              stroke={theme === 'dark' ? 'rgba(198, 199, 248, 1)':'rgba(28, 28, 28, 1)'}
               strokeWidth={3}
               strokeDasharray="8 4"
               dot={false}
-              activeDot={{ r: 4, fill: 'rgba(28, 28, 28, 1)' }}
+              activeDot={{ r: 4, fill: 'rgba(198, 199, 248, 1)' }}
               connectNulls={false}
             />
           </LineChart>

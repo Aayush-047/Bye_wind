@@ -1,43 +1,36 @@
+import React from 'react'
 import MetricsCards from '../../components/MetricsCards/MetricsCards'
 import ProjectionsChart from '../../components/ProjectionsChart/ProjectionsChart'
 import RevenueChart from '../../components/RevenueChart/RevenueChart'
 import RevenueLocationMap from '../../components/RevenueLocationMap/RevenueLocationMap'
 import TopSellingProducts from '../../components/TopSellingProducts/TopSellingProducts'
 import TotalSalesChart from '../../components/TotalSalesChart/TotalSalesChart'
-import './Dashboard.css' 
 
 const Dashboard = ({ theme }) => {
   return (
-    <div className="dashboard-container">
-      {/* Dashboard title */}
-      <h3 className="dashboard-title">eCommerce</h3>
-      
-      {/* Metrics and Projections row */}
-      <div className="dashboard-row">
-        <div className="dashboard-col-half">
+    <div >
+      <h3 style={{fontWeight:600,marginBottom:16,marginTop:16,padding:'4px 8px',color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'inherit'}}>eCommerce</h3>
+      <div style={{display:"flex" , gap :'28px',marginBottom:'28px'}}>
+        <div style={{width:'50%'}}>
           <MetricsCards theme={theme}/>
         </div>
-        <div className="dashboard-col-half">
+        <div style={{width:'50%'}}>
           <ProjectionsChart theme={theme}/>
         </div>
       </div>
-      
-      {/* Revenue and Location Map row */}
-      <div className="dashboard-row">
-        <div className="dashboard-col-three-quarters">
+      <div style={{display:"flex" , gap :'28px',marginBottom:'28px'}}>
+        <div style={{width:'75%'}}>
           <RevenueChart theme={theme}/>
         </div>
-        <div className="dashboard-col-quarter">
+        <div style={{width:'25%'}}>
           <RevenueLocationMap theme={theme}/>
         </div>
       </div>
-      
-      {/* Products and Sales row */}
-      <div className="dashboard-row">
-        <div className="dashboard-col-three-quarters">
+      <div style={{display:"flex" , gap :'28px',marginBottom:'28px'}}>
+        <div style={{width:'75%'}}>
           <TopSellingProducts theme={theme}/>
         </div>
-        <div className="dashboard-col-quarter">
+        <div style={{width:'25%'}}>
           <TotalSalesChart theme={theme}/>
         </div>
       </div>

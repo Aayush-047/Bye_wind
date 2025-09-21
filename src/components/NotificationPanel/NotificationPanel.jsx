@@ -26,7 +26,7 @@ export default function NotificationPanel({ isOpen, onClose, theme = "light" }) 
       >
         {/* Header */}
         <div className="notification-panel__header">
-          <h3 className="notification-panel__title">
+          <h3 className="notification-panel__title" style={{color:theme === "dark" ?'rgba(255,255,255,1)':'inherit'}}>
             Notifications
           </h3>
         </div>

@@ -48,23 +48,22 @@ const ProjectionsChart = ({ theme = "light" }) => {
 
   return (
     <div style={{
-      backgroundColor: theme === 'dark' ? '#1f2937' : 'rgba(247, 249, 251, 1)',
+      backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(247, 249, 251, 1)',
       padding: '24px',
       borderRadius: '16px',
-      border: theme === 'dark' ? '1px solid #374151' : '1px solid #e5e7eb',
       width: '100%',
       height: '257px',
       gap: '16px',
     }}>
       {/* Header */}
-      <h2 style={{
+      <h3 style={{
         fontWeight: '600',
-        color: theme === 'dark' ? '#ffffff' : '#1f2937',
+        color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)',
         margin: '0 0 24px 0',
         lineHeight: '20px'
       }}>
         Projections vs Actuals
-      </h2>
+      </h3>
 
       {/* Chart Container */}
       <div style={{ width: '100%', height: '180px' }}>
@@ -82,7 +81,7 @@ const ProjectionsChart = ({ theme = "light" }) => {
             {/* Grid Lines */}
             <CartesianGrid 
               strokeDasharray="none"
-              stroke={theme === 'dark' ? '#374151' : 'rgba(28, 28, 28, 0.05)'}
+              stroke={theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(28, 28, 28, 0.05)'}
               horizontal={true}
               vertical={false}
             />
@@ -93,7 +92,7 @@ const ProjectionsChart = ({ theme = "light" }) => {
               tickLine={false}
               tick={{
                 fontSize: 14,
-                fill: theme === 'dark' ? '#9ca3af' : 'rgba(28, 28, 28, 0.4)',
+                fill: theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)',
                 fontWeight: '400'
               }}
               dy={10}
@@ -106,7 +105,7 @@ const ProjectionsChart = ({ theme = "light" }) => {
               tickLine={false}
               tick={{
                 fontSize: 14,
-                fill: theme === 'dark' ? '#9ca3af' : 'rgba(28, 28, 28, 0.4)',
+                fill: theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)',
                 fontWeight: '400'
               }}
               dx={-20}
@@ -117,7 +116,7 @@ const ProjectionsChart = ({ theme = "light" }) => {
               dataKey="actuals" 
               stackId="stack"
               radius={[0, 0, 4, 4]}
-              fill={theme === 'dark' ? '#1e40af' : 'rgba(168, 197, 218, 1)'}
+              fill={theme === 'dark' ? 'rgba(168, 197, 218, 1)' : 'rgba(168, 197, 218, 1)'}
             />
             
             {/* Projections Bar (Top/Lighter) */}
@@ -125,7 +124,7 @@ const ProjectionsChart = ({ theme = "light" }) => {
               dataKey="projections" 
               stackId="stack"
               radius={[4, 4, 0, 0]}
-              fill={theme === 'dark' ? '#60a5fa' : 'rgba(168, 197, 218, 1)'}
+              fill={theme === 'dark' ? 'rgba(168, 197, 218, 1)' : 'rgba(168, 197, 218, 1)'}
               style={{opacity:'50%'}}
             />
           </BarChart>
@@ -135,7 +134,7 @@ const ProjectionsChart = ({ theme = "light" }) => {
       {/* Custom Grid Lines */}
       <style jsx>{`
         .recharts-cartesian-grid-horizontal line {
-          stroke: ${theme === 'dark' ? '#374151' : 'rgba(28, 28, 28, 0.05)'};
+          stroke: ${theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(28, 28, 28, 0.05)'};
           stroke-width: 1;
         }
         .recharts-cartesian-grid-vertical {

@@ -36,10 +36,9 @@ const TopSellingProducts = ({ theme = "light" }) => {
 
   return (
     <div style={{
-      backgroundColor: theme === 'dark' ? '#1f2937' : 'rgba(247, 249, 251, 1)',
+      backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(247, 249, 251, 1)',
       padding: '24px',
       borderRadius: '16px',
-      border: theme === 'dark' ? '1px solid #374151' : '1px solid #e5e7eb',
       width: '100%',
       gap:'4px',
     }}>
@@ -47,7 +46,8 @@ const TopSellingProducts = ({ theme = "light" }) => {
       <h3 style={{
         fontWeight: '600',
         margin: '0 0 16px 0',
-        lineHeight: '1.2'
+        lineHeight: '1.2',
+        color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' :'inherit',
       }}>
         Top Selling Products
       </h3>
@@ -66,10 +66,10 @@ const TopSellingProducts = ({ theme = "light" }) => {
               <th style={{
                 textAlign: 'left',
                 paddingBottom: '11px',
-                borderBottom: `1px solid ${theme === 'dark' ? '#374151' : 'rgba(28, 28, 28, 0.4)'}`,
+                borderBottom: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(28, 28, 28, 0.4)'}`,
                 fontSize: '14px',
                 fontWeight: '500',
-                color: theme === 'dark' ? '#9ca3af' : 'rgba(28, 28, 28, 0.4)',
+                color: theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)',
                 paddingRight: '24px'
               }}>
                 Name
@@ -77,10 +77,10 @@ const TopSellingProducts = ({ theme = "light" }) => {
               <th style={{
                 textAlign: 'left',
                 paddingBottom: '11px',
-                borderBottom: `1px solid ${theme === 'dark' ? '#374151' : 'rgba(28, 28, 28, 0.4)'}`,
+                borderBottom: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(28, 28, 28, 0.4)'}`,
                 fontSize: '14px',
                 fontWeight: '500',
-                color: theme === 'dark' ? '#9ca3af' : 'rgba(28, 28, 28, 0.4)',
+                color: theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)',
                 paddingRight: '24px'
               }}>
                 Price
@@ -88,10 +88,10 @@ const TopSellingProducts = ({ theme = "light" }) => {
               <th style={{
                 textAlign: 'left',
                 paddingBottom: '11px',
-                borderBottom: `1px solid ${theme === 'dark' ? '#374151' : 'rgba(28, 28, 28, 0.4)'}`,
+                borderBottom: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(28, 28, 28, 0.4)'}`,
                 fontSize: '14px',
                 fontWeight: '500',
-                color: theme === 'dark' ? '#9ca3af' : 'rgba(28, 28, 28, 0.4)',
+                color: theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)',
                 paddingRight: '24px'
               }}>
                 Quantity
@@ -99,10 +99,10 @@ const TopSellingProducts = ({ theme = "light" }) => {
               <th style={{
                 textAlign: 'left',
                 paddingBottom: '11px',
-                borderBottom: `1px solid ${theme === 'dark' ? '#374151' : 'rgba(28, 28, 28, 0.4)'}`,
+                borderBottom: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(28, 28, 28, 0.4)'}`,
                 fontSize: '14px',
                 fontWeight: '500',
-                color: theme === 'dark' ? '#9ca3af' : 'rgba(28, 28, 28, 0.4)',
+                color: theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)',
                 paddingRight: '24px'
               }}>
                 Amount
@@ -124,6 +124,7 @@ const TopSellingProducts = ({ theme = "light" }) => {
                   paddingTop: '11px',
                   paddingBottom: '11px',
                   paddingRight: '24px',
+                  color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 0.4)',
                 }}>
                   {product.name}
                 </td>
@@ -131,6 +132,7 @@ const TopSellingProducts = ({ theme = "light" }) => {
                   paddingTop: '11px',
                   paddingBottom: '11px',
                   paddingRight: '24px',
+                  color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 0.4)',
                 }}>
                   {product.price}
                 </td>
@@ -138,6 +140,7 @@ const TopSellingProducts = ({ theme = "light" }) => {
                   paddingTop: '11px',
                   paddingBottom: '11px',
                   paddingRight: '24px',
+                  color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 0.4)',
                 }}>
                   {product.quantity}
                 </td>
@@ -145,6 +148,7 @@ const TopSellingProducts = ({ theme = "light" }) => {
                   paddingTop: '11px',
                   paddingBottom: '11px',
                   paddingRight: '24px',
+                  color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 0.4)',
                 }}>
                   {product.amount}
                 </td>

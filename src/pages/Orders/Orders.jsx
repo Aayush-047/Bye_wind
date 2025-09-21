@@ -14,7 +14,7 @@ import { ReactComponent as SortIcon } from '../../assets/icons/sort.svg';
 import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg";
 import { ReactComponent as DateIcon } from "../../assets/icons/date.svg";
 import { ReactComponent as MoreIcon } from "../../assets/icons/more.svg";
-import { OrdersMockData as mockData } from '../../mock/OrdersData';
+import { OrdersMockData as mockData } from '../../mock/ordersData';
 import './Orders.css';
 
 const { useBreakpoint } = Grid;
@@ -29,7 +29,7 @@ const iconMap = {
   'Contact7Icon': Contact7Icon,
 };
 
-const Orders = () => {
+const Orders = ({theme}) => {
   const screens = useBreakpoint();
   const [searchText, setSearchText] = useState('');
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -44,6 +44,7 @@ const Orders = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [isSortVisible, setIsSortVisible] = useState(false);
+  
 
   const [data, setData] = useState(() => {
     try {
@@ -57,6 +58,25 @@ const Orders = () => {
 
   const [filteredData, setFilteredData] = useState(data);
 
+  const applyFilters = (search, statuses, sort) => {
+    let filtered = data.filter(item =>
+      (item.user.name.toLowerCase().includes(search.toLowerCase()) ||
+       item.project.toLowerCase().includes(search.toLowerCase()) ||
+       item.orderId.toLowerCase().includes(search.toLowerCase()) ||
+       item.address.toLowerCase().includes(search.toLowerCase())) &&
+      (statuses.length === 0 || statuses.includes(item.status))
+    );
+
+    if (sort === 'asc') {
+      filtered.sort((a, b) => a.user.name.localeCompare(b.user.name));
+    } else if (sort === 'desc') {
+      filtered.sort((a, b) => b.user.name.localeCompare(a.user.name));
+    }
+
+    setFilteredData(filtered);
+    setCurrentPage(1);
+  };
+
   useEffect(() => {
     try {
       localStorage.setItem('ordersData', JSON.stringify(data));
@@ -67,7 +87,32 @@ const Orders = () => {
 
   useEffect(() => {
     applyFilters(searchText, statusFilter, sortOrder);
-  }, [data]);
+  }, [data,applyFilters, searchText, sortOrder,statusFilter]);
+
+  // Add this useEffect to fix existing data icon mapping
+useEffect(() => {
+  // Fix icon mapping for existing data
+  const userIconMap = {
+    'Natali Craig': 'Contact7Icon',
+    'Kate Morrison': 'Contact5Icon',
+    'Drew Cano': 'Contact2Icon',
+    'Orlando Diggs': 'Contact3Icon',
+    'Andi Lane': 'Contact4Icon',
+  };
+
+  const fixedData = data.map(item => {
+    const iconKey = userIconMap[item.user.name] || 'Contact1Icon';
+    return {
+      ...item,
+      icon: iconKey
+    };
+  });
+
+  // Only update if there are changes needed
+  if (JSON.stringify(fixedData) !== JSON.stringify(data)) {
+    setData(fixedData);
+  }
+}, [data]); // Run only once on component mount
 
   const getStatusColor = (status) => {
     const colors = {
@@ -105,86 +150,71 @@ const Orders = () => {
     }
   };
 
-  const applyFilters = (search, statuses, sort) => {
-    let filtered = data.filter(item =>
-      (item.user.name.toLowerCase().includes(search.toLowerCase()) ||
-       item.project.toLowerCase().includes(search.toLowerCase()) ||
-       item.orderId.toLowerCase().includes(search.toLowerCase()) ||
-       item.address.toLowerCase().includes(search.toLowerCase())) &&
-      (statuses.length === 0 || statuses.includes(item.status))
-    );
-
-    if (sort === 'asc') {
-      filtered.sort((a, b) => a.user.name.localeCompare(b.user.name));
-    } else if (sort === 'desc') {
-      filtered.sort((a, b) => b.user.name.localeCompare(a.user.name));
-    }
-
-    setFilteredData(filtered);
-    setCurrentPage(1);
-  };
+  
 
   const handleAddOrder = (values) => {
-    if (selectedRecord) {
-      const updatedData = data.map(item => {
-        if (item.key === selectedRecord.key) {
-          return {
-            ...item,
-            user: { name: values.userName },
-            project: values.project,
-            address: values.address,
-            date: values.date ? values.date.format('MMM D, YYYY') : item.date,
-            status: values.status,
-          };
-        }
-        return item;
-      });
-      
-      setData(updatedData);
-      applyFilters(searchText, statusFilter, sortOrder);
-      
-      setIsAddModalVisible(false);
-      form.resetFields();
-      setSelectedRecord(null);
-      message.success('Order updated successfully!');
-    } else {
-      const userIconMap = {
-        'Natali Craig': 'Contact7Icon',
-        'Kate Morrison': 'Contact5Icon',
-        'Drew Cano': 'Contact2Icon',
-        'Orlando Diggs': 'Contact3Icon',
-        'Andi Lane': 'Contact4Icon',
-      };
+  if (selectedRecord) {
+    const updatedData = data.map(item => {
+      if (item.key === selectedRecord.key) {
+        return {
+          ...item,
+          user: { name: values.userName },
+          project: values.project,
+          address: values.address,
+          date: values.date ? values.date.format('MMM D, YYYY') : item.date,
+          status: values.status,
+        };
+      }
+      return item;
+    });
+    
+    setData(updatedData);
+    applyFilters(searchText, statusFilter, sortOrder);
+    
+    setIsAddModalVisible(false);
+    form.resetFields();
+    setSelectedRecord(null);
+    message.success('Order updated successfully!');
+  } else {
+    // Fix the user icon mapping - use the same mapping as in mock data
+    const userIconMap = {
+      'Natali Craig': 'Contact7Icon',
+      'Kate Morrison': 'Contact5Icon',
+      'Drew Cano': 'Contact2Icon',
+      'Orlando Diggs': 'Contact3Icon',
+      'Andi Lane': 'Contact4Icon',
+      'Add new user': 'Contact1Icon', // Default for new users
+    };
 
-      const newOrder = {
-        key: (data.length + 1).toString(),
-        orderId: `#CM98${(data.length + 1).toString().padStart(2, '0')}`,
-        user: { name: values.userName },
-        project: values.project,
-        address: values.address,
-        date: values.date ? values.date.format('MMM D, YYYY') : 'Just now',
-        status: values.status,
-        icon: userIconMap[values.userName] || 'Contact1Icon'
-      };
-      
-      const updatedData = [...data, newOrder];
-      setData(updatedData);
-      
-      const filtered = updatedData.filter(item =>
-        (item.user.name.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.project.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.orderId.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.address.toLowerCase().includes(searchText.toLowerCase())) &&
-        (statusFilter.length === 0 || statusFilter.includes(item.status))
-      );
-      setFilteredData(filtered);
-      setCurrentPage(1);
-      
-      setIsAddModalVisible(false);
-      form.resetFields();
-      message.success('Order added successfully!');
-    }
-  };
+    const newOrder = {
+      key: (data.length + 1).toString(),
+      orderId: `#CM98${(data.length + 1).toString().padStart(2, '0')}`,
+      user: { name: values.userName },
+      project: values.project,
+      address: values.address,
+      date: values.date ? values.date.format('MMM D, YYYY') : 'Just now',
+      status: values.status,
+      icon: userIconMap[values.userName] || 'Contact1Icon' // Use mapping or default
+    };
+    
+    const updatedData = [...data, newOrder];
+    setData(updatedData);
+    
+    const filtered = updatedData.filter(item =>
+      (item.user.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.project.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.orderId.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.address.toLowerCase().includes(searchText.toLowerCase())) &&
+      (statusFilter.length === 0 || statusFilter.includes(item.status))
+    );
+    setFilteredData(filtered);
+    setCurrentPage(1);
+    
+    setIsAddModalVisible(false);
+    form.resetFields();
+    message.success('Order added successfully!');
+  }
+};
 
   const handleAction = (action, record) => {
     setSelectedRecord(record);
@@ -248,6 +278,8 @@ const Orders = () => {
     </Menu>
   );
 
+  const isDark = theme === 'dark';
+
   const columns = [
     {
       title: (
@@ -282,14 +314,14 @@ const Orders = () => {
       responsive: ['md'],
     },
     {
-      title: <span style={{ color: 'rgba(28, 28, 28, 0.4)' }}>Order ID</span>,
+      title: <span style={{ color: isDark ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)' }}>Order ID</span>,
       dataIndex: 'orderId',
       key: 'orderId',
       width: 120,
       render: (text) => <span>{text}</span>,
     },
     {
-      title: <span style={{ color: 'rgba(28, 28, 28, 0.4)' }}>User</span>,
+      title: <span style={{ color: isDark ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)' }}>User</span>,
       dataIndex: 'user',
       key: 'user',
       width: 200,
@@ -306,7 +338,7 @@ const Orders = () => {
       },
     },
     {
-      title: <span style={{ color: 'rgba(28, 28, 28, 0.4)' }}>Project</span>,
+      title: <span style={{ color: isDark ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)' }}>Project</span>,
       dataIndex: 'project',
       key: 'project',
       width: 180,
@@ -314,7 +346,7 @@ const Orders = () => {
       responsive: ['md'],
     },
     {
-      title: <span style={{ color: 'rgba(28, 28, 28, 0.4)' }}>Address</span>,
+      title: <span style={{ color: isDark ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)' }}>Address</span>,
       dataIndex: 'address',
       key: 'address',
       width: 200,
@@ -322,7 +354,7 @@ const Orders = () => {
       responsive: ['lg'],
     },
     {
-      title: <span style={{ color: 'rgba(28, 28, 28, 0.4)' }}>Date</span>,
+      title: <span style={{ color: isDark ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)' }}>Date</span>,
       dataIndex: 'date',
       key: 'date',
       width: 150,
@@ -335,7 +367,7 @@ const Orders = () => {
       responsive: ['sm'],
     },
     {
-      title: <span style={{ color: 'rgba(28, 28, 28, 0.4)' }}>Status</span>,
+      title: <span style={{ color: isDark ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)' }}>Status</span>,
       dataIndex: 'status',
       key: 'status',
       width: 130,
@@ -379,6 +411,8 @@ const Orders = () => {
       ),
     },
   ];
+
+  
 
   // Mobile card view for small screens
   const mobileCardView = () => {
@@ -463,16 +497,34 @@ const Orders = () => {
       );
     });
   };
+  
+
+
+
+
+const inputStyle = {
+  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.02)' : 'transparent',
+  borderColor: isDark ? 'rgba(255, 255, 255, 0.4)' : '#d9d9d9',
+  color: isDark ? 'rgba(255, 255, 255, 1)' : 'inherit'
+};
+
+const buttonStyle = {
+  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.02)' : 'transparent',
+  borderColor: isDark ? 'rgba(255, 255, 255, 0.4)' : '#d9d9d9',
+  color: isDark ? 'rgba(255, 255, 255, 1)' : 'inherit'
+};
+
 
   return (
-    <div className="orders-container">
-      <h3 className="orders-title">Order List</h3>
+    <div className="orders-container" style={{ backgroundColor: isDark ? 'rgba(28,28,28, 1)' : 'inherit' }}>
+      <h3 className="orders-title" style={{ color: isDark ? 'rgba(255, 255, 255, 1)' : 'inherit' }}>Order List</h3>
       
-      <div className="orders-header">
+      <div className={`orders-header ${isDark ? 'dark-theme' : ''}`}>
         <div className="orders-header-left">
           <Button 
-            icon={<PlusIcon className="header-icon" />} 
+            icon={<PlusIcon className="header-icon" style={{ color: isDark ? 'rgba(255, 255, 255, 0.4)' : 'inherit' }} />} 
             className="header-icon-button"
+            style={buttonStyle}
             onClick={() => {
               form.resetFields();
               setSelectedRecord(null);
@@ -483,22 +535,32 @@ const Orders = () => {
           {screens.md ? (
             <>
               <Dropdown overlay={filterMenu} trigger={['click']}>
-                <Button icon={<FilterIcon className="header-icon" />} className="header-icon-button" />
+                <Button 
+                  icon={<FilterIcon className="header-icon" style={{ color: isDark ? 'rgba(255, 255, 255, 0.4)' : 'inherit' }}/>} 
+                  className="header-icon-button" 
+                  style={buttonStyle}
+                />
               </Dropdown>
               <Dropdown overlay={sortMenu} trigger={['click']}>
-                <Button icon={<SortIcon className="header-icon" />} className="header-icon-button" />
+                <Button 
+                  icon={<SortIcon className="header-icon" style={{ color: isDark ? 'rgba(255, 255, 255, 0.4)' : 'inherit' }}/>} 
+                  className="header-icon-button" 
+                  style={buttonStyle}
+                />
               </Dropdown>
             </>
           ) : (
             <>
               <Button 
-                icon={<FilterIcon className="header-icon" />} 
+                icon={<FilterIcon className="header-icon" style={{ color: isDark ? 'rgba(255, 255, 255, 0.4)' : 'inherit' }} />} 
                 className="header-icon-button"
+                style={buttonStyle}
                 onClick={() => setIsFilterVisible(!isFilterVisible)}
               />
               <Button 
-                icon={<SortIcon className="header-icon" />} 
+                icon={<SortIcon className="header-icon"style={{ color: isDark ? 'rgba(255, 255, 255, 0.4)' : 'inherit' }} />} 
                 className="header-icon-button"
+                style={buttonStyle}
                 onClick={() => setIsSortVisible(!isSortVisible)}
               />
             </>
@@ -507,11 +569,12 @@ const Orders = () => {
         
         <Input
           placeholder="Search"
-          prefix={<SearchIcon className="header-icon" />}
+          prefix={<SearchIcon className="header-icon" style={{ color: isDark ? 'rgba(255, 255, 255, 0.4)' : 'inherit' }} />}
           value={searchText}
           onChange={(e) => handleSearch(e.target.value)}
           className="orders-search"
           size="middle"
+          style={inputStyle}
         />
       </div>
 
@@ -578,7 +641,7 @@ const Orders = () => {
             className: "pagination-container",
             onChange: (page) => setCurrentPage(page), 
           }}
-          className="custom-table"
+          className={`custom-table ${isDark ? 'dark-theme' : ''}`} 
           showHeader={true}
           size="middle"
           rowSelection={undefined}

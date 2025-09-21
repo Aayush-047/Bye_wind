@@ -9,7 +9,7 @@
   justify-content: space-between;
   padding: 8px;
   background-color: rgba(247, 249, 251, 1);
-  height: 44px;
+  height: 54px;
   border-radius: 8px;
 }
 
@@ -426,3 +426,186 @@
   border-right: none !important;
   background-image: none !important;
 }
+.dark-theme-table .ant-table {
+  background-color: #1a1a1a !important;
+}
+
+.dark-theme-table .ant-table-thead > tr > th {
+  background-color: #1a1a1a !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4) !important;
+}
+
+.dark-theme-table .ant-table-tbody > tr > td {
+  background-color: #1a1a1a !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4) !important;
+}
+
+.custom-table.dark-theme {
+  background-color: rgba(28, 28, 28, 1) !important;
+}
+
+.custom-table.dark-theme .ant-table {
+  background-color: rgba(28, 28, 28, 1) !important;
+}
+
+.custom-table.dark-theme .ant-table-thead > tr > th {
+  background-color: rgba(28, 28, 28, 1) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.custom-table.dark-theme .ant-table-tbody > tr > td {
+  background-color: rgba(28, 28, 28, 1) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.custom-table.dark-theme .ant-table-tbody > tr:hover > td {
+  background-color: rgba(40, 40, 40, 1) !important;
+}
+
+.custom-table.dark-theme .ant-pagination-item {
+  background-color: rgba(28, 28, 28, 1) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.custom-table.dark-theme .ant-pagination-item a {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.custom-table.dark-theme .ant-pagination-item-active {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+
+.custom-table.dark-theme .ant-checkbox-inner {
+  background-color: rgba(28, 28, 28, 1) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.custom-table.dark-theme .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.custom-table.dark-theme .ant-checkbox-checked .ant-checkbox-inner::after {
+  border-color: rgba(255, 255, 255, 1) !important;
+}
+
+.orders-header.dark-theme {
+  background-color: rgba(28, 28, 28, 1) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.custom-table.dark-theme .ant-pagination-prev .ant-pagination-item-link,
+.custom-table.dark-theme .ant-pagination-next .ant-pagination-item-link {
+  background-color: rgba(28, 28, 28, 1) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.custom-table.dark-theme .ant-pagination-disabled .ant-pagination-item-link {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+
+/* Add to Orders.css */
+/* Add to Orders.css with higher specificity */
+.orders-container .orders-header.dark-theme {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  padding: 12px 12px 20px 12px !important; /* Added important flag */
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.orders-container .orders-header {
+  padding: 12px 12px 20px 12px !important; /* Added important flag */
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+/* Ensure the header content is properly aligned */
+.orders-container .orders-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.orders-container .orders-header-left {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Make sure the search input has proper styling */
+.orders-container .orders-search {
+  min-width: 200px;
+}
+
+/* For mobile responsiveness */
+@media (max-width: 768px) {
+  .orders-container .orders-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .orders-container .orders-header-left {
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+  
+  .orders-container .orders-search {
+    width: 100%;
+  }
+}
+
+/* Add to Orders.css */
+.orders-header.dark-theme .header-icon {
+  color: rgba(255, 255, 255, 1) !important;
+  filter: brightness(1);
+}
+
+.orders-header.dark-theme .header-icon-button {
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.orders-header.dark-theme .header-icon-button:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.orders-header.dark-theme .ant-input {
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.orders-header.dark-theme .ant-input::placeholder {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.orders-header.dark-theme .ant-input-prefix {
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.orders-header.dark-theme .ant-input-prefix .header-icon {
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+/* Specific styles for SVG icons */
+.orders-header.dark-theme .header-icon path,
+.orders-header.dark-theme .header-icon circle,
+.orders-header.dark-theme .header-icon rect {
+  stroke: rgba(255, 255, 255, 1) !important;
+  fill: rgba(255, 255, 255, 1) !important;
+}
+    
+/* If the icons use fill instead of stroke */
+.orders-header.dark-theme .header-icon {
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+/* For the search input text */
+.orders-header.dark-theme .ant-input {
+  color: rgba(255, 255, 255, 0.2) !important;
+}   

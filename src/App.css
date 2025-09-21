@@ -1,50 +1,62 @@
-.ant-menu .ant-menu-item .ant-menu-item-icon,
-.ant-menu .ant-menu-submenu-title .ant-menu-item-icon,
-.ant-menu .ant-menu-item .anticon,
-.ant-menu .ant-menu-submenu-title .anticon {
-  min-width: 0 !important;
-}
-.ant-menu-light .ant-menu-item-selected,
-.ant-menu-light .ant-menu-submenu-selected {
-  background-color: rgba(28, 28, 28, 0.1) !important;
-  color: #1c1c1c !important; /* optional: make text dark */
-}
-.ant-menu-submenu-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-/* Sidebar.css */
-
-/* Remove AntD's default blue background */
-.ant-menu-light .ant-menu-item-selected,
-.ant-menu-light .ant-menu-submenu-selected > .ant-menu-submenu-title {
-  background-color: transparent !important;
-  color: #111827 !important; /* optional: dark text */
-  font-weight: 600; /* make it bold */
-  position: relative;
+/* CSS Custom Properties for theming */
+:root {
+  --layout-bg-color: #ffffff;
 }
 
-/* Add left vertical bar */
-.ant-menu-item-selected::before,
-.ant-menu-submenu-selected > .ant-menu-submenu-title::before {
-  content: "";
-  position: absolute;
-  left: 0; /* bar on the left */
-  top: 8px;
-  bottom: 8px;
-  width: 3px;
-  background-color: #1C1C1C; /* Tailwind blue-600 */
-  border-radius: 2px;
+[data-theme="dark"] {
+  --layout-bg-color: rgba(28, 28, 28, 1);
 }
-.ant-menu .ant-menu-item-group-title
-{
-    padding: 0px;
-    
-}
-.ant-menu-inline .ant-menu-item {
-    height: 28px;
-}
-.ant-layout{
-    background-color: #ffffff;
+
+.ant-menu .ant-menu-item .ant-menu-item-icon, 
+.ant-menu .ant-menu-submenu-title .ant-menu-item-icon, 
+.ant-menu .ant-menu-item .anticon, 
+.ant-menu .ant-menu-submenu-title .anticon {   
+  min-width: 0 !important; 
+} 
+
+.ant-menu-light .ant-menu-item-selected, 
+.ant-menu-light .ant-menu-submenu-selected {   
+  background-color: rgba(28, 28, 28, 0.1) !important;   
+  color: #1c1c1c !important; 
+} 
+
+.ant-menu-submenu-title {   
+  display: flex;   
+  align-items: center;   
+  gap: 8px; 
+} 
+
+/* Remove AntD's default blue background */ 
+.ant-menu-light .ant-menu-item-selected, 
+.ant-menu-light .ant-menu-submenu-selected > .ant-menu-submenu-title {   
+  background-color: transparent !important;   
+  color: #111827 !important;   
+  font-weight: 600;   
+  position: relative; 
+}  
+
+/* Add left vertical bar */ 
+.ant-menu-item-selected::before, 
+.ant-menu-submenu-selected > .ant-menu-submenu-title::before {   
+  content: "";   
+  position: absolute;   
+  left: 0;   
+  top: 8px;   
+  bottom: 8px;   
+  width: 3px;   
+  background-color: #1C1C1C;   
+  border-radius: 2px; 
+} 
+
+.ant-menu .ant-menu-item-group-title {     
+  padding: 0px;      
+} 
+
+.ant-menu-inline .ant-menu-item {     
+  height: 28px; 
+} 
+
+/* Theme-aware layout background */
+.ant-layout {     
+  background-color: var(--layout-bg-color) !important; 
 }
