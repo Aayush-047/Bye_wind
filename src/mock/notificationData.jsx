@@ -1,5 +1,5 @@
 import { ReactComponent as Activity1Icon } from '../assets/icons/activity1.svg';
-import { ReactComponent as Activity2Icon } from '../assets/icons/activity2.svg';
+import activity2 from '../assets/images/activity2.png'; 
 import { ReactComponent as Activity3Icon } from '../assets/icons/activity3.svg';
 import { ReactComponent as Activity4Icon } from '../assets/icons/activity4.svg';
 import { ReactComponent as Activity5Icon } from '../assets/icons/activity5.svg';
@@ -21,7 +21,7 @@ export const notifications = [
     iconBg: '#E0F2FE',
     iconColor: '#0891B2',
     title: 'You have a bug that needs...',
-    time: 'Just now'
+    time: 'Just now',
   },
   {
     id: 2,
@@ -30,7 +30,7 @@ export const notifications = [
     iconBg: '#F3F4F6',
     iconColor: '#6B7280',
     title: 'New user registered',
-    time: '59 minutes ago'
+    time: '59 minutes ago',
   },
   {
     id: 3,
@@ -39,7 +39,7 @@ export const notifications = [
     iconBg: '#E0F2FE',
     iconColor: '#0891B2',
     title: 'You have a bug that needs...',
-    time: '12 hours ago'
+    time: '12 hours ago',
   },
   {
     id: 4,
@@ -48,8 +48,8 @@ export const notifications = [
     iconBg: '#F3F4F6',
     iconColor: '#6B7280',
     title: 'Andi Lane subscribed to you',
-    time: 'Today, 11:59 AM'
-  }
+    time: 'Today, 11:59 AM',
+  },
 ];
 
 export const activities = [
@@ -57,63 +57,63 @@ export const activities = [
     id: 1,
     avatar: <Activity1Icon />,
     title: 'You have a bug that needs...',
-    time: 'Just now'
+    time: 'Just now',
   },
   {
     id: 2,
-    avatar: <Activity2Icon />,
+    avatar: <img src={activity2} alt="Activity2" style={{ width: 24, height: 24 }} />, // ✅ PNG as <img>
     title: 'Released a new version',
-    time: '59 minutes ago'
+    time: '59 minutes ago',
   },
   {
     id: 3,
     avatar: <Activity3Icon />,
     title: 'Submitted a bug',
-    time: '12 hours ago'
+    time: '12 hours ago',
   },
   {
     id: 4,
     avatar: <Activity4Icon />,
     title: 'Modified A data in Page X',
-    time: 'Today, 11:59 AM'
+    time: 'Today, 11:59 AM',
   },
   {
     id: 5,
     avatar: <Activity5Icon />,
     title: 'Deleted a page in Project X',
-    time: 'Feb 2, 2023'
-  }
+    time: 'Feb 2, 2023',
+  },
 ];
 
 export const contacts = [
   {
     id: 1,
     avatar: <Contact1Icon />,
-    name: 'Natali Craig'
+    name: 'Natali Craig',
   },
   {
     id: 2,
     avatar: <Contact2Icon />,
-    name: 'Drew Cano'
+    name: 'Drew Cano',
   },
   {
     id: 3,
     avatar: <Contact3Icon />,
-    name: 'Orlando Diggs'
+    name: 'Orlando Diggs',
   },
   {
     id: 4,
     avatar: <Contact4Icon />,
-    name: 'Andi Lane'
+    name: 'Andi Lane',
   },
   {
     id: 5,
     avatar: <Contact5Icon />,
-    name: 'Kate Morrison'
+    name: 'Kate Morrison',
   },
   {
     id: 6,
     avatar: <Contact6Icon />,
-    name: 'Koray Okumus'
-  }
+    name: 'Koray Okumus',
+  },
 ];
