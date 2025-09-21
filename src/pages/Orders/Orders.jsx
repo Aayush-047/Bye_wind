@@ -14,7 +14,7 @@ import { ReactComponent as SortIcon } from '../../assets/icons/sort.svg';
 import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg";
 import { ReactComponent as DateIcon } from "../../assets/icons/date.svg";
 import { ReactComponent as MoreIcon } from "../../assets/icons/more.svg";
-import { OrdersMockData as mockData } from '../../mock/ordersData';
+import { OrdersMockData as mockData } from '../../mock/OrdersData';
 import './Orders.css';
 
 const { useBreakpoint } = Grid;
