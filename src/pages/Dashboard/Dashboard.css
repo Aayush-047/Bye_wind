@@ -1,0 +1,66 @@
+/* Dashboard.css */
+
+/* Base styles (desktop-first) */
+.dashboard-container {
+  padding: 0 16px;
+}
+
+.dashboard-title {
+  font-weight: 600;
+  margin: 16px 0;
+  padding: 4px 8px;
+}
+
+.dashboard-row {
+  display: flex;
+  gap: 28px;
+  margin-bottom: 28px;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.dashboard-col-half {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.dashboard-col-quarter {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+.dashboard-col-three-quarters {
+  flex: 0 0 75%;
+  max-width: 75%;
+}
+
+/* Tablet: width between 768px and 1024px */
+@media (max-width: 1024px) {
+  .dashboard-col-half,
+  .dashboard-col-three-quarters,
+  .dashboard-col-quarter {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .dashboard-row {
+    gap: 16px;
+  }
+}
+
+/* Mobile: width below 768px */
+@media (max-width: 767px) {
+  .dashboard-container {
+    padding: 0 8px;
+  }
+
+  .dashboard-row {
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .dashboard-title {
+    font-size: 1.2rem;
+    margin: 12px 0;
+  }
+}

@@ -1,0 +1,16 @@
+* {
+  font-family: 'Inter', sans-serif !important;
+}
+:root {
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: rgba(28, 28, 28, 1);
+}
+body, html {
+  font: var(--font-regular);
+  color: #1a1a1a;
+}

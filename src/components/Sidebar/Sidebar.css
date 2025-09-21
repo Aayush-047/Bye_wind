@@ -1,0 +1,169 @@
+.sidebar {
+  border-right: 1px solid rgba(28, 28, 28, 0.1);
+  padding-top: 20px;
+  padding-right: 16px;
+  padding-bottom: 20px;
+  padding-left: 16px;
+}
+
+/* Header */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.sidebar-header-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Tabs */
+.sidebar-section {
+  margin-bottom: 16px;
+}
+
+.sidebar-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.sidebar-tab-wrapper{
+  padding: 4px 8px;
+}
+
+.sidebar-tab {
+  color: rgba(28, 28, 28, 0.2);
+}
+
+.sidebar-tab-active {
+  color: rgba(28, 28, 28, 0.4);
+}
+
+/* Quick access dots */
+.sidebar-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 100%;
+  background-color: rgba(28, 28, 28, 0.2);
+}
+
+/* Menu */
+.sidebar-menu {
+  border: none !important;
+  background: transparent !important;
+  padding-left: 0;
+}
+
+.sidebar-item {
+  padding: 4px 8px !important;
+  min-width: 0 !important;
+  gap: 4px;
+}
+
+.sidebar-subitem {
+  margin-bottom: 4px !important;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  
+}
+
+.sidebar-subitem-last {
+  margin-bottom: 12px !important;
+}
+
+/* Group title */
+.sidebar-group-title {
+  color: rgba(28, 28, 28, 0.4);
+  margin-bottom: 8px;
+  padding: 4px 12px;
+}
+
+.default{
+  display: flex !important;
+  align-items: center !important;
+  padding-left: 28px !important;
+  height: 40px !important; 
+  gap: 4px;
+}
+
+
+.sidebar .ant-menu-submenu > .ant-menu-submenu-title {
+  display: flex !important;
+  align-items: center !important;
+  padding-left: 0 !important;
+  padding-right: 24px !important;
+}
+
+.sidebar .ant-menu-submenu > .ant-menu-submenu-title .ant-menu-submenu-arrow {
+  position: static !important;
+  right: auto !important;
+  left: 4px !important; 
+  margin-left: 5px !important;
+  margin-top: 8px;
+  width: 14px !important;
+  height: 14px !important;
+  order: -1 !important;
+  transform: none !important;
+}
+
+.sidebar .ant-menu-submenu-open > .ant-menu-submenu-title .ant-menu-submenu-arrow {
+  transform: rotate(90deg) !important;
+}
+
+.sidebar .ant-menu-submenu > .ant-menu-submenu-title .ant-menu-submenu-arrow::before,
+.sidebar .ant-menu-submenu > .ant-menu-submenu-title .ant-menu-submenu-arrow::after {
+  background-color: rgba(28, 28, 28, 0.2) !important;
+  position: absolute !important;
+  width: 8px !important;
+  height: 2px !important;
+}
+
+.sidebar .ant-menu-submenu > .ant-menu-submenu-title .ant-menu-submenu-arrow::before {
+  transform: rotate(45deg) translateY(-2.5px) !important;
+}
+
+.sidebar .ant-menu-submenu > .ant-menu-submenu-title .ant-menu-submenu-arrow::after {
+  transform: rotate(-45deg) translateY(2.5px) !important;
+  margin-top: 0px;
+}
+
+/* Make icons bigger and ensure proper positioning */
+.sidebar .ant-menu-submenu > .ant-menu-submenu-title .anticon,
+.sidebar .ant-menu-item .anticon {
+  order: 0 !important;
+  margin-right: 12px !important;
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.sidebar .ant-menu-submenu > .ant-menu-submenu-title .anticon svg,
+.sidebar .ant-menu-item .anticon svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.sidebar .ant-menu-submenu > .ant-menu-submenu-title .ant-menu-title-content {
+  order: 1 !important;
+  flex: 1 !important;
+}
+
+/* Ensure menu items have proper alignment */
+.sidebar .ant-menu-item,
+.sidebar .ant-menu-submenu > .ant-menu-submenu-title {
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Prevent font-weight change on selected menu items */
+.sidebar .ant-menu-item,
+.sidebar .ant-menu-submenu-title {
+  font-weight: normal !important; /* keep consistent weight */
+}
+
+
+
+

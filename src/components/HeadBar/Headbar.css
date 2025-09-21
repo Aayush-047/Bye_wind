@@ -1,0 +1,213 @@
+/* Header Container */
+.header {
+  padding: 0px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.header.dark {
+  background: #1f1f1f;
+  border-bottom: 1px solid #333;
+}
+
+.header.light {
+  background: #fff;
+  border-bottom: 1px solid rgba(28, 28, 28, 0.1);
+}
+
+/* Left Section */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+/* Common Button Styles */
+.header-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.header-button.dark {
+  color: #fff;
+}
+
+.header-button.light {
+  color: #666;
+}
+
+/* Header Icons */
+.header-icon {
+  font-size: 16px;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.breadcrumb.dark {
+  color: #ccc;
+}
+
+.breadcrumb.light {
+  color: #666;
+}
+
+.breadcrumb-item.dark {
+  color: #888;
+}
+
+.breadcrumb-item.light {
+  color: rgb(28, 28, 28, 0.4);
+}
+
+.breadcrumb-separator.dark {
+  color: #888;
+}
+
+.breadcrumb-separator.light {
+  color: #999;
+}
+
+.breadcrumb-current.dark {
+  color: #fff;
+}
+
+.breadcrumb-current.light {
+  color: rgb(28, 28, 28);
+}
+
+/* Center Section */
+.header-center {
+  display: flex;
+  margin: 0 24px;
+}
+
+/* Search Input */
+.search-input {
+  width: 160px;
+  height: 28px;
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+
+.search-input.dark {
+  background-color: #2a2a2a;
+  border: 1px solid #404040;
+}
+
+.search-input.light {
+  background-color: rgb(28, 28, 28,0.05);
+  border: 1px solid rgb(28, 28, 28,0.05);
+}
+
+/* Search Input Ant Design Override */
+.search-input.dark .ant-input {
+  background-color: transparent;
+  color: #fff;
+}
+
+.search-input.light .ant-input {
+  background-color: transparent;
+  color: rgb(28, 28, 28);
+}
+
+.search-icon {
+  color: #999;
+}
+
+.search-shortcut {
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+.search-shortcut.dark {
+  color: #999;
+  background-color: #333;
+}
+
+.search-shortcut.light {
+  color: #999;
+  background-color: #f5f5f5;
+}
+
+/* Right Section */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Action Buttons */
+.header-action-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.header-action-button.dark {
+  color: #fff;
+}
+
+.header-action-button.light {
+  color: #666;
+}
+
+.header-action-button.dark:hover {
+  background-color: #333;
+}
+
+.header-action-button.light:hover {
+  background-color: #f0f0f0;
+}
+
+/* Notification Button */
+.notification-button {
+  position: relative;
+}
+
+.notification-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  background-color: #ff4d4f;
+  border-radius: 50%;
+}
+
+.notification-badge.dark {
+  border: 2px solid #1f1f1f;
+}
+
+.notification-badge.light {
+  border: 2px solid #fff;
+}
+
+/* Favorite button styling */
+.favorite-active {
+  background-color: rgba(255, 193, 7, 0.1);
+  border-color: #ffc107;
+}
+
+.star-filled {
+  fill: #ffc107;
+  color: #ffc107;
+}

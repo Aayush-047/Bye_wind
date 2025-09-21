@@ -1,0 +1,428 @@
+/* Orders.css */
+.orders-container {
+  background-color: white;
+}
+
+.orders-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  background-color: rgba(247, 249, 251, 1);
+  height: 44px;
+  border-radius: 8px;
+}
+
+.orders-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-icon-button {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 4px !important;
+  height: auto !important;
+  width: auto !important;
+  min-width: auto !important;
+}
+
+.header-icon-button.ant-btn {
+  border: none !important;
+}
+
+.header-icon-button.ant-btn:focus,
+.header-icon-button.ant-btn:hover {
+  border: none !important;
+  background-color: rgba(28, 28, 28, 0.05) !important;
+}
+
+.header-icon-button.ant-btn::before,
+.header-icon-button.ant-btn::after {
+  display: none !important;
+}
+
+.header-icon {
+  color: rgba(28, 28, 28, 0.6);
+  font-size: 16px;
+}
+
+.ant-dropdown-trigger.header-icon-button {
+  border: none !important;
+}
+
+.header-icon-button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.orders-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.orders-search {
+  width: 160px;
+  border: 1px solid rgba(28, 28, 28, 0.1);
+  color: rgba(28, 28, 28, 1);
+  border-radius: 8px;
+}
+
+.user-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-icon-container {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.date-cell {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.date-icon {
+  color: #9CA3AF;
+  font-size: 12px;
+}
+
+.status-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.action-cell {
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-icon {
+  color: rgba(28, 28, 28, 0.4);
+  font-size: 16px;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: rgba(28, 28, 28, 1) !important;
+  border-color: rgba(28, 28, 28, 1) !important;
+}
+
+.ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.ant-checkbox:hover .ant-checkbox-inner,
+.ant-checkbox-input:focus + .ant-checkbox-inner {
+  border-color: rgba(28, 28, 28, 0.2) !important;
+}
+
+.ant-checkbox-inner {
+  border-color: rgba(28, 28, 28, 0.2) !important;
+}
+
+.ant-checkbox-indeterminate .ant-checkbox-inner::after {
+  background-color: rgba(28, 28, 28, 1) !important;
+}
+
+.ant-table-thead > tr > th:first-child,
+.ant-table-tbody > tr > td:first-child {
+  padding: 12px 8px !important;
+}
+
+.ant-table {
+  border: none !important;
+}
+
+.ant-table-thead > tr > th {
+  background-color: transparent !important;
+  border-bottom: 1px solid rgba(28, 28, 28, 0.5) !important;
+  color: rgba(28, 28, 28, 0.4) !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  padding: 12px 16px !important;
+  border-top: none !important;
+  border-right: none !important;
+}
+
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid rgba(28, 28, 28, 0.1) !important;
+  padding: 16px !important;
+  border-right: none !important;
+  color: rgba(28, 28, 28, 1) !important;
+  font-weight: normal !important;
+  font-size: 14px !important;
+}
+
+.ant-table-container table > thead > tr:first-child > th {
+  border-bottom: 1px solid rgba(28, 28, 28, 0.2) !important;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background-color: rgba(28, 28, 28, 0.02) !important;
+}
+
+.ant-pagination {
+  text-align: center !important;
+  margin: 20px 0 !important;
+}
+
+.ant-pagination-item {
+  border: 1px solid rgba(28, 28, 28, 0.1) !important;
+  margin: 0 2px !important;
+  border-radius: 4px !important;
+  background: transparent !important;
+}
+
+.ant-pagination-item-active {
+  background-color: rgba(28, 28, 28, 1) !important;
+  border-color: rgba(28, 28, 28, 1) !important;
+}
+
+.ant-pagination-item-active a {
+  color: white !important;
+}
+
+.ant-pagination-prev, .ant-pagination-next {
+  border: none !important;
+  background: transparent !important;
+}
+
+.ant-pagination-prev:hover, .ant-pagination-next:hover {
+  background: transparent !important;
+}
+
+.ant-table-container {
+  border: none !important;
+}
+
+.ant-table-wrapper .ant-table-container table > thead > tr:first-child > th:first-child {
+  border-top-left-radius: 0 !important;
+}
+
+.ant-table-wrapper .ant-table-container table > thead > tr:first-child > th:last-child {
+  border-top-right-radius: 0 !important;
+}
+
+.ant-btn {
+  border: 1px solid rgba(28, 28, 28, 0.1) !important;
+  height: 32px !important;
+  padding: 4px 8px !important;
+  background: transparent !important;
+  color: rgba(28, 28, 28, 0.8) !important;
+}
+
+.ant-btn:hover {
+  border-color: rgba(28, 28, 28, 0.3) !important;
+  background: rgba(28, 28, 28, 0.02) !important;
+}
+
+.ant-dropdown-menu {
+  border-radius: 4px !important;
+  box-shadow: 0 4px 12px rgba(28, 28, 28, 0.15) !important;
+}
+
+.ant-dropdown-menu-item {
+  font-size: 14px !important;
+  color: rgba(28, 28, 28, 0.8) !important;
+}
+
+.ant-dropdown-menu-item:hover {
+  background-color: rgba(28, 28, 28, 0.04) !important;
+}
+
+.pagination-container .ant-pagination-item {
+  border: none !important;
+  background: transparent !important;
+  min-width: auto !important;
+  height: auto !important;
+  margin: 0 4px !important;
+}
+
+.pagination-container .ant-pagination-item a {
+  color: rgba(28, 28, 28, 1) !important;
+  padding: 4px 8px !important;
+  font-size: 14px !important;
+}
+
+.pagination-container .ant-pagination-item:hover a {
+  color: rgba(28, 28, 28, 1) !important;
+  background-color: rgba(28, 28, 28, 0.05) !important;
+  border-radius: 4px !important;
+}
+
+.pagination-container .ant-pagination-item-active {
+  background: transparent !important;
+  border: none !important;
+  background-color: rgba(28, 28, 28, 0.05) !important;
+  border-radius: 4px !important;
+  color: rgba(28, 28, 28, 1) !important;
+}
+
+.pagination-container .ant-pagination-item-active a {
+  color: rgba(28, 28, 28, 1) !important;
+  background-color: transparent !important;
+  font-weight: 500 !important;
+}
+
+.pagination-container .ant-pagination-prev,
+.pagination-container .ant-pagination-next {
+  border: none !important;
+  background: transparent !important;
+  min-width: auto !important;
+  height: auto !important;
+  margin: 0 4px !important;
+}
+
+.pagination-container .ant-pagination-prev .ant-pagination-item-link,
+.pagination-container .ant-pagination-next .ant-pagination-item-link {
+  border: none !important;
+  background: transparent !important;
+  color: rgba(28, 28, 28, 1) !important;
+  font-size: 14px !important;
+  padding: 4px 8px !important;
+}
+
+.pagination-container .ant-pagination-prev:hover .ant-pagination-item-link,
+.pagination-container .ant-pagination-next:hover .ant-pagination-item-link {
+  color: rgba(28, 28, 28, 0.8) !important;
+  background-color: rgba(28, 28, 28, 0.05) !important;
+  border-radius: 4px !important;
+}
+
+.pagination-container .ant-pagination-item:focus,
+.pagination-container .ant-pagination-prev:focus,
+.pagination-container .ant-pagination-next:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.ant-table-tbody > tr > td {
+  height: 40px !important;
+  min-height: 40px !important;
+  padding: 8px 16px !important;
+}
+
+.ant-table-tbody > tr {
+  height: 40px !important;
+}
+
+.ant-table-thead > tr > th {
+  height: 40px !important;
+  padding: 8px 16px !important;
+}
+
+.ant-table-thead > tr > th:first-child,
+.ant-table-tbody > tr > td:first-child {
+  padding: 8px 8px !important;
+}
+
+.user-cell {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.date-cell {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.status-cell {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.user-icon-container {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.action-cell {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+}
+
+.ant-table-thead > tr > th:not(:last-child)::after,
+.ant-table-tbody > tr > td:not(:last-child)::after {
+  display: none !important;
+  content: none !important;
+}
+
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr > td {
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.ant-table-resize-handle,
+.ant-table-resize-handle-line {
+  display: none !important;
+}
+
+.ant-table-cell {
+  border-right: none !important;
+}
+
+.ant-table-cell::before,
+.ant-table-cell::after {
+  display: none !important;
+  content: none !important;
+}
+
+.ant-table-container,
+.ant-table-content,
+.ant-table-body {
+  border-right: none !important;
+  border-left: none !important;
+}
+
+.ant-table-column-sorter,
+.ant-table-filter-trigger {
+  border-left: none !important;
+}
+
+.ant-table-thead > tr > th:nth-child(2),
+.ant-table-tbody > tr > td:nth-child(2),
+.ant-table-thead > tr > th:nth-child(3),
+.ant-table-tbody > tr > td:nth-child(3),
+.ant-table-thead > tr > th:nth-child(4),
+.ant-table-tbody > tr > td:nth-child(4) {
+  border-right: none !important;
+  background-image: none !important;
+}
