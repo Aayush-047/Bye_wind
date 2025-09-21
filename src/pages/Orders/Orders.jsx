@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Table, Input, Checkbox, Button, Dropdown, Menu, Modal, Form, Select, DatePicker, message, Grid } from 'antd';
 import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { ReactComponent as Contact1Icon } from '../../assets/icons/contacts1.svg';
@@ -58,8 +58,9 @@ const Orders = ({theme}) => {
 
   const [filteredData, setFilteredData] = useState(data);
 
-  const applyFilters = (search, statuses, sort) => {
-    let filtered = data.filter(item =>
+  // Memoized applyFilters function to prevent unnecessary re-renders
+  const applyFilters = useCallback((search, statuses, sort, dataToFilter = data) => {
+    let filtered = dataToFilter.filter(item =>
       (item.user.name.toLowerCase().includes(search.toLowerCase()) ||
        item.project.toLowerCase().includes(search.toLowerCase()) ||
        item.orderId.toLowerCase().includes(search.toLowerCase()) ||
@@ -75,7 +76,7 @@ const Orders = ({theme}) => {
 
     setFilteredData(filtered);
     setCurrentPage(1);
-  };
+  }, [data]); // Only recreate when data changes
 
   useEffect(() => {
     try {
@@ -87,32 +88,32 @@ const Orders = ({theme}) => {
 
   useEffect(() => {
     applyFilters(searchText, statusFilter, sortOrder);
-  }, [data,applyFilters, searchText, sortOrder,statusFilter]);
+  }, [searchText, sortOrder, statusFilter, applyFilters]);
 
   // Add this useEffect to fix existing data icon mapping
-useEffect(() => {
-  // Fix icon mapping for existing data
-  const userIconMap = {
-    'Natali Craig': 'Contact7Icon',
-    'Kate Morrison': 'Contact5Icon',
-    'Drew Cano': 'Contact2Icon',
-    'Orlando Diggs': 'Contact3Icon',
-    'Andi Lane': 'Contact4Icon',
-  };
-
-  const fixedData = data.map(item => {
-    const iconKey = userIconMap[item.user.name] || 'Contact1Icon';
-    return {
-      ...item,
-      icon: iconKey
+  useEffect(() => {
+    // Fix icon mapping for existing data
+    const userIconMap = {
+      'Natali Craig': 'Contact7Icon',
+      'Kate Morrison': 'Contact5Icon',
+      'Drew Cano': 'Contact2Icon',
+      'Orlando Diggs': 'Contact3Icon',
+      'Andi Lane': 'Contact4Icon',
     };
-  });
 
-  // Only update if there are changes needed
-  if (JSON.stringify(fixedData) !== JSON.stringify(data)) {
-    setData(fixedData);
-  }
-}, [data]); // Run only once on component mount
+    const fixedData = data.map(item => {
+      const iconKey = userIconMap[item.user.name] || 'Contact1Icon';
+      return {
+        ...item,
+        icon: iconKey
+      };
+    });
+
+    // Only update if there are changes needed
+    if (JSON.stringify(fixedData) !== JSON.stringify(data)) {
+      setData(fixedData);
+    }
+  }, [data]);
 
   const getStatusColor = (status) => {
     const colors = {
@@ -131,12 +132,10 @@ useEffect(() => {
 
   const handleSearch = (value) => {
     setSearchText(value);
-    applyFilters(value, statusFilter, sortOrder);
   };
 
   const handleStatusFilter = (statuses) => {
     setStatusFilter(statuses);
-    applyFilters(searchText, statuses, sortOrder);
     if (!screens.md) {
       setIsFilterVisible(false);
     }
@@ -144,77 +143,65 @@ useEffect(() => {
 
   const handleSort = (order) => {
     setSortOrder(order);
-    applyFilters(searchText, statusFilter, order);
     if (!screens.md) {
       setIsSortVisible(false);
     }
   };
 
-  
-
   const handleAddOrder = (values) => {
-  if (selectedRecord) {
-    const updatedData = data.map(item => {
-      if (item.key === selectedRecord.key) {
-        return {
-          ...item,
-          user: { name: values.userName },
-          project: values.project,
-          address: values.address,
-          date: values.date ? values.date.format('MMM D, YYYY') : item.date,
-          status: values.status,
-        };
-      }
-      return item;
-    });
-    
-    setData(updatedData);
-    applyFilters(searchText, statusFilter, sortOrder);
-    
-    setIsAddModalVisible(false);
-    form.resetFields();
-    setSelectedRecord(null);
-    message.success('Order updated successfully!');
-  } else {
-    // Fix the user icon mapping - use the same mapping as in mock data
-    const userIconMap = {
-      'Natali Craig': 'Contact7Icon',
-      'Kate Morrison': 'Contact5Icon',
-      'Drew Cano': 'Contact2Icon',
-      'Orlando Diggs': 'Contact3Icon',
-      'Andi Lane': 'Contact4Icon',
-      'Add new user': 'Contact1Icon', // Default for new users
-    };
+    if (selectedRecord) {
+      const updatedData = data.map(item => {
+        if (item.key === selectedRecord.key) {
+          return {
+            ...item,
+            user: { name: values.userName },
+            project: values.project,
+            address: values.address,
+            date: values.date ? values.date.format('MMM D, YYYY') : item.date,
+            status: values.status,
+          };
+        }
+        return item;
+      });
+      
+      setData(updatedData);
+      applyFilters(searchText, statusFilter, sortOrder, updatedData);
+      
+      setIsAddModalVisible(false);
+      form.resetFields();
+      setSelectedRecord(null);
+      message.success('Order updated successfully!');
+    } else {
+      // Fix the user icon mapping - use the same mapping as in mock data
+      const userIconMap = {
+        'Natali Craig': 'Contact7Icon',
+        'Kate Morrison': 'Contact5Icon',
+        'Drew Cano': 'Contact2Icon',
+        'Orlando Diggs': 'Contact3Icon',
+        'Andi Lane': 'Contact4Icon',
+        'Add new user': 'Contact1Icon', // Default for new users
+      };
 
-    const newOrder = {
-      key: (data.length + 1).toString(),
-      orderId: `#CM98${(data.length + 1).toString().padStart(2, '0')}`,
-      user: { name: values.userName },
-      project: values.project,
-      address: values.address,
-      date: values.date ? values.date.format('MMM D, YYYY') : 'Just now',
-      status: values.status,
-      icon: userIconMap[values.userName] || 'Contact1Icon' // Use mapping or default
-    };
-    
-    const updatedData = [...data, newOrder];
-    setData(updatedData);
-    
-    const filtered = updatedData.filter(item =>
-      (item.user.name.toLowerCase().includes(searchText.toLowerCase()) ||
-      item.project.toLowerCase().includes(searchText.toLowerCase()) ||
-      item.orderId.toLowerCase().includes(searchText.toLowerCase()) ||
-      item.address.toLowerCase().includes(searchText.toLowerCase())) &&
-      (statusFilter.length === 0 || statusFilter.includes(item.status))
-    );
-    setFilteredData(filtered);
-    setCurrentPage(1);
-    
-    setIsAddModalVisible(false);
-    form.resetFields();
-    message.success('Order added successfully!');
-  }
-};
+      const newOrder = {
+        key: (data.length + 1).toString(),
+        orderId: `#CM98${(data.length + 1).toString().padStart(2, '0')}`,
+        user: { name: values.userName },
+        project: values.project,
+        address: values.address,
+        date: values.date ? values.date.format('MMM D, YYYY') : 'Just now',
+        status: values.status,
+        icon: userIconMap[values.userName] || 'Contact1Icon' // Use mapping or default
+      };
+      
+      const updatedData = [...data, newOrder];
+      setData(updatedData);
+      applyFilters(searchText, statusFilter, sortOrder, updatedData);
+      
+      setIsAddModalVisible(false);
+      form.resetFields();
+      message.success('Order added successfully!');
+    }
+  };
 
   const handleAction = (action, record) => {
     setSelectedRecord(record);
@@ -238,7 +225,7 @@ useEffect(() => {
     if (recordToDelete) {
       const updatedData = data.filter(item => item.key !== recordToDelete.key);
       setData(updatedData);
-      applyFilters(searchText, statusFilter, sortOrder);
+      applyFilters(searchText, statusFilter, sortOrder, updatedData);
       setIsDeleteModalVisible(false);
       setRecordToDelete(null);
       message.success('Order deleted successfully!');
@@ -412,8 +399,6 @@ useEffect(() => {
     },
   ];
 
-  
-
   // Mobile card view for small screens
   const mobileCardView = () => {
     return filteredData.map(record => {
@@ -497,23 +482,18 @@ useEffect(() => {
       );
     });
   };
-  
 
+  const inputStyle = {
+    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.02)' : 'transparent',
+    borderColor: isDark ? 'rgba(255, 255, 255, 0.4)' : '#d9d9d9',
+    color: isDark ? 'rgba(255, 255, 255, 1)' : 'inherit'
+  };
 
-
-
-const inputStyle = {
-  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.02)' : 'transparent',
-  borderColor: isDark ? 'rgba(255, 255, 255, 0.4)' : '#d9d9d9',
-  color: isDark ? 'rgba(255, 255, 255, 1)' : 'inherit'
-};
-
-const buttonStyle = {
-  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.02)' : 'transparent',
-  borderColor: isDark ? 'rgba(255, 255, 255, 0.4)' : '#d9d9d9',
-  color: isDark ? 'rgba(255, 255, 255, 1)' : 'inherit'
-};
-
+  const buttonStyle = {
+    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.02)' : 'transparent',
+    borderColor: isDark ? 'rgba(255, 255, 255, 0.4)' : '#d9d9d9',
+    color: isDark ? 'rgba(255, 255, 255, 1)' : 'inherit'
+  };
 
   return (
     <div className="orders-container" style={{ backgroundColor: isDark ? 'rgba(28,28,28, 1)' : 'inherit' }}>
