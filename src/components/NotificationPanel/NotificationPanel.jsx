@@ -1,10 +1,4 @@
 import React from 'react';
-import { 
-  BugOutlined, 
-  UserAddOutlined, 
-  WifiOutlined,
-  CloseOutlined 
-} from '@ant-design/icons';
 import { Layout, Menu } from "antd";
 import { notifications, activities, contacts } from '../../mock/notificationData';
 import './NotificationPanel.css';

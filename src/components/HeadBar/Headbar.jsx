@@ -86,8 +86,6 @@ export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNo
             style={{ 
               fill: isFavorite ? '#ffc107' : 'currentColor',
               stroke: isFavorite ? '#ffc107' : 'currentColor',
-              fill: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)",
-              stroke: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)"
             }}
           />
         </button>

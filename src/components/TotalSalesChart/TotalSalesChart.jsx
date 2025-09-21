@@ -29,9 +29,6 @@ const TotalSalesChart = ({ theme = "light" }) => {
     },
   ];
 
-  const total = data.reduce((sum, item) => sum + item.value, 0);
-  const largestSegment = data.reduce((max, item) => item.percentage > max.percentage ? item : max);
-
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       const { percentage } = payload[0].payload;
