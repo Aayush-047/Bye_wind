@@ -1,71 +1,92 @@
-# Bye_wind
-# Getting Started with Create React App
+# Bye_wind 🌬️  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![React](https://img.shields.io/badge/React-18-blue?logo=react)  
+![Ant Design](https://img.shields.io/badge/AntDesign-5-%230170FE?logo=antdesign)  
+![Netlify](https://img.shields.io/badge/Deployed%20on-Netlify-brightgreen?logo=netlify)  
+![License](https://img.shields.io/badge/license-MIT-green)  
 
-## Available Scripts
+A pixel-perfect React application focused on **design accuracy, responsiveness, performance, and user experience**. The project demonstrates modern frontend best practices, clean architecture, and deployment readiness.  
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## ✨ Features  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 🎨 Pixel-Perfect Implementation  
+- Matches the Figma design specifications for **layout, spacing, typography, colors, and alignment**.  
+- Consistent UI components (buttons, inputs, modals, etc.) across the app.  
+- Accurate usage of fonts, font sizes, weights, and styles.  
+- Fully **responsive** for desktop, tablet, and mobile devices.  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🧩 Code Quality & Best Practices  
+- Organized and modular codebase for easy navigation.  
+- Reusable components following **DRY principles**.  
+- Clean, well-documented code with meaningful variable names.  
+- Efficient rendering, lazy loading, and minimized re-renders.  
+- Accessibility standards maintained (ARIA roles, keyboard navigation, focus states).  
 
-### `npm test`
+### 🎬 Motion & Microinteractions  
+- Smooth animations with no performance lag.  
+- Hover effects, button states, and loaders enhance usability.  
+- Microinteractions align with the brand identity and design language.  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### ⚡ Functionality  
+- Filtering  
+- Searching  
+- Sorting  
+- Pagination  
+- Dark/Light Theme toggle  
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🛠️ Tech Stack  
+- **React.js**  
+- **Ant Design (Antd)**  
+- **CSS/SCSS** for styling  
+- **Netlify** for deployment  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🚀 Getting Started  
 
-### `npm run eject`
+### 1. Clone the repository  
+```bash
+git clone https://github.com/Aayush-047/Bye_wind.git
+cd Bye_wind
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 2. Install dependencies
+```bash
+npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 3. Run locally
+```bash
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+App will be available at http://localhost:3000
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 4. Build for production
+```bash
+npm run build
+```
+## Deployment
+** The project is deployed on Netlify:https://bye-wi-nd.netlify.app/ ** 
 
-## Learn More
+## Documentation
+** Components are modular and documented with inline comments.** 
+** Advanced state management practices (where appropriate).**
+** Clear folder structure:** 
+```bash
+Bye_wind/
+├── public/              # Static assets, redirects
+├── src/
+│   ├── assets/          # Icons, images
+│   ├── components/      # Reusable UI components
+│   ├── pages/           # Page-level components
+│   ├── styles/          # Global & modular styles
+│   ├── App.js
+│   └── index.js
+└── package.json
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
