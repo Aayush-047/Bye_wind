@@ -71,12 +71,12 @@ App will be available at http://localhost:3000
 npm run build
 ```
 ## Deployment
-- ** The project is deployed on Netlify:https://bye-wi-nd.netlify.app/ ** 
+- The project is deployed on Netlify: https://bye-wi-nd.netlify.app/  
 
 ## Documentation
-- ** Components are modular and documented with inline comments.** 
-- ** Advanced state management practices (where appropriate).**
-- ** Clear folder structure:** 
+- Components are modular and documented with inline comments. 
+- Advanced state management practices (where appropriate).
+- Clear folder structure:
 ```bash
 Bye_wind/
 ├── public/              # Static assets, redirects
