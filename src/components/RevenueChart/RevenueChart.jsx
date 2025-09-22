@@ -11,11 +11,10 @@ const RevenueChart = ({ theme = "light" }) => {
     { month: 'Jun', currentWeek: 20, previousWeek: 24 }
   ];
 
-  // Create data with null values to break the line at the transition point
   const solidLineData = data.map((item, index) => ({
     ...item,
-    currentWeekSolid: index <= 3 ? item.currentWeek : null, // Jan to Apr (index 0-3)
-    currentWeekDashed: index >= 3 ? item.currentWeek : null // Apr to Jun (index 3-5)
+    currentWeekSolid: index <= 3 ? item.currentWeek : null,
+    currentWeekDashed: index >= 3 ? item.currentWeek : null
   }));
 
   const formatYAxisLabel = (value) => {
@@ -23,15 +22,24 @@ const RevenueChart = ({ theme = "light" }) => {
     return `${value}M`;
   };
 
+  const backgroundColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(247, 249, 251, 1)';
+  const textColor = theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)';
+  const separatorColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(28, 28, 28, 0.2)';
+  const currentWeekDotColor = theme === 'dark' ? 'rgba(198, 199, 248, 1)' : 'rgba(28, 28, 28, 1)';
+  const previousWeekDotColor = 'rgba(168, 197, 218, 1)';
+  const currentWeekLineColor = theme === 'dark' ? 'rgba(198, 199, 248, 1)' : 'rgba(28, 28, 28, 1)';
+  const previousWeekLineColor = 'rgba(168, 197, 218, 1)';
+  const gridColor = theme === 'dark' ? '#374151' : '#f3f4f6';
+  const tickColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)';
+
   return (
     <div style={{
-      backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(247, 249, 251, 1)',
+      backgroundColor,
       padding: '24px',
       borderRadius: '16px',
       width: '100%',
       height: '318px',
     }}>
-      {/* Header with Legend */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
@@ -41,77 +49,48 @@ const RevenueChart = ({ theme = "light" }) => {
       }}>
         <h3 style={{
           fontWeight: '600',
-          color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)',
+          color: textColor,
           margin: '0',
           lineHeight: '1.2'
         }}>
           Revenue
         </h3> 
-        <div style={{fontSize:'14px',color:theme === 'dark' ? 'rgba(255, 255, 255, 0.2)' :'rgba(28, 28, 28, 0.2)'}}>
-            |
-        </div>
-        {/* Legend */}
-        <div style={{
-          display: 'flex',
-          gap: '24px',
-          alignItems: 'center'
-        }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px'
-          }}>
+        <div style={{fontSize:'14px', color: separatorColor}}>|</div>
+        <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <div style={{
               width: '8px',
               height: '8px',
               borderRadius: '50%',
-              backgroundColor: theme === 'dark' ? 'rgba(198, 199, 248, 1)' :'rgba(28, 28, 28, 1)'
+              backgroundColor: currentWeekDotColor
             }} />
-            <span style={{
-              fontSize: '12px',
-              color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)',
-            }}>
+            <span style={{ fontSize: '12px', color: textColor }}>
               Current Week <span style={{ fontWeight: '600' }}>$58,211</span>
             </span>
           </div>
-          
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px'
-          }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <div style={{
               width: '8px',
               height: '8px',
               borderRadius: '50%',
-              backgroundColor: theme === 'dark' ? 'rgba(168, 197, 218, 1)' : 'rgba(168, 197, 218, 1)'
+              backgroundColor: previousWeekDotColor
             }} />
-            <span style={{
-              fontSize: '12px',
-              color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)',
-            }}>
+            <span style={{ fontSize: '12px', color: textColor }}>
               Previous Week <span style={{ fontWeight: '600' }}>$68,768</span>
             </span>
           </div>
         </div>
       </div>
 
-      {/* Chart Container */}
       <div style={{ width: '100%', height: '232px' }}>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={solidLineData}
-            margin={{
-              top: 20,
-              right: 20,
-              left: 0,
-              bottom: 20,
-            }}
+            margin={{ top: 20, right: 20, left: 0, bottom: 20 }}
           >
-            {/* Grid Lines */}
             <CartesianGrid 
               strokeDasharray="none"
-              stroke={theme === 'dark' ? '#374151' : '#f3f4f6'}
+              stroke={gridColor}
               horizontal={true}
               vertical={false}
             />
@@ -120,10 +99,7 @@ const RevenueChart = ({ theme = "light" }) => {
               dataKey="month"
               axisLine={false}
               tickLine={false}
-              tick={{
-                fontSize: 12,
-                fill: theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)',
-              }}
+              tick={{ fontSize: 12, fill: tickColor }}
               dy={10}
             />
             
@@ -133,43 +109,37 @@ const RevenueChart = ({ theme = "light" }) => {
               tickFormatter={formatYAxisLabel}
               axisLine={false}
               tickLine={false}
-              tick={{
-                fontSize: 12,
-                fill: theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)',
-              }}
+              tick={{ fontSize: 12, fill: tickColor }}
               dx={-20}
             />
             
-            {/* Previous Week Line (Light Blue/Solid) */}
             <Line 
               type="monotone"
               dataKey="previousWeek"
-              stroke= {theme === 'dark' ? 'rgba(168, 197, 218, 1)':'rgba(168, 197, 218, 1)'}
+              stroke={previousWeekLineColor}
               strokeWidth={3}
               dot={false}
-              activeDot={{ r: 4, fill: 'rgba(168, 197, 218, 1)' }}
+              activeDot={{ r: 4, fill: previousWeekLineColor }}
             />
             
-            {/* Current Week Line - Solid Part (Jan to Apr) */}
             <Line 
               type="monotone"
               dataKey="currentWeekSolid"
-              stroke={theme === 'dark' ? 'rgba(198, 199, 248, 1)':'rgba(28, 28, 28, 1)'}
+              stroke={currentWeekLineColor}
               strokeWidth={3}
               dot={false}
-              activeDot={{ r: 4, fill: 'rgba(198, 199, 248, 1)' }}
+              activeDot={{ r: 4, fill: currentWeekLineColor }}
               connectNulls={false}
             />
             
-            {/* Current Week Line - Dashed Part (Apr to Jun) */}
             <Line 
               type="monotone"
               dataKey="currentWeekDashed"
-              stroke={theme === 'dark' ? 'rgba(198, 199, 248, 1)':'rgba(28, 28, 28, 1)'}
+              stroke={currentWeekLineColor}
               strokeWidth={3}
               strokeDasharray="8 4"
               dot={false}
-              activeDot={{ r: 4, fill: 'rgba(198, 199, 248, 1)' }}
+              activeDot={{ r: 4, fill: currentWeekLineColor }}
               connectNulls={false}
             />
           </LineChart>

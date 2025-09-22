@@ -57,7 +57,6 @@ const TotalSalesChart = ({ theme = "light" }) => {
       height: 'auto',
       gap:'16px'
     }}>
-      {/* Header */}
       <h2 style={{
         fontWeight: '600',
         color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)',
@@ -67,7 +66,6 @@ const TotalSalesChart = ({ theme = "light" }) => {
         Total Sales
       </h2>
 
-      {/* Chart Container */}
       <div style={{ 
         display: 'flex', 
         justifyContent:'center',
@@ -105,7 +103,6 @@ const TotalSalesChart = ({ theme = "light" }) => {
         </div>
       </div>
 
-      {/* Legend */}
       <div style={{ 
         display: 'flex', 
         flexDirection: 'column', 

@@ -6,36 +6,38 @@ import { ReactComponent as SunIcon } from "../../assets/icons/sun.svg";
 import { ReactComponent as RefreshIcon } from "../../assets/icons/refresh.svg";
 import { ReactComponent as BellIcon } from "../../assets/icons/bell.svg";
 import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg";
+import { useSearch } from '../../contexts/SearchContext'; // 👈 NEW IMPORT
 import './Headbar.css'
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const { Header } = Layout;
 
 export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNotification, notificationOpen, breadcrumb }) {
-  // Initialize state with function to read from localStorage
+  // 👈 ADD SEARCH CONTEXT
+  const { searchQuery, handleSearch, searchResults } = useSearch();
+  const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate();
+
+
   const [favorites, setFavorites] = useState(() => {
     try {
       const saved = localStorage.getItem("favorites");
-      // Parse the saved value or return empty array if null/undefined
       return saved ? JSON.parse(saved) : [];
     } catch (error) {
-      console.error("Error reading from localStorage:", error);
       return [];
     }
   });
 
-  // Get current page from breadcrumb or fallback to pathname
-  // Normalize the path to ensure consistent comparison
   const getCurrentPage = () => {
     const page = window.location.pathname;
-    // Remove trailing slashes for consistency
     return page.replace(/\/+$/, '');
   };
   
   const currentPage = getCurrentPage();
   const isFavorite = favorites.includes(currentPage);
   
-  // Save to localStorage whenever favorites change
   useEffect(() => {
     try {
       localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -58,11 +60,36 @@ export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNo
     window.location.reload();
   };
 
+  // 👈 NEW SEARCH HANDLERS
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    handleSearch(value);
+    setShowDropdown(value.length > 0);
+  };
+
+  const handleSearchFocus = () => {
+    if (searchQuery.length > 0) {
+      setShowDropdown(true);
+    }
+  };
+
+  const handleSearchBlur = () => {
+    // Delay hiding dropdown to allow clicks on results
+    setTimeout(() => setShowDropdown(false), 150);
+  };
+
+  const handleResultClick = (result) => {
+  if (result.screen === 'orders') {
+    navigate('/orders'); // If using React Router
+  } else if (result.screen === 'dashboard') {
+    navigate('/'); // Navigate to dashboard
+  }
+  setShowDropdown(false);
+};
+
   return (
     <Header className={`header ${theme}`}>
-      {/* Left Section - Navigation */}
       <div className="header-left">
-        {/* Menu Icon */}
         <button 
           className={`header-button ${theme}`}
           onClick={onToggleSidebar}
@@ -70,26 +97,17 @@ export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNo
           <SidePanelLeftIcon className="header-icon" style={{fill: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)",
     stroke: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)"}} />
         </button>
-        {/* Star/Favorite Icon */}
         <button 
-          className={`header-button ${theme}`}
+          className={`header-button ${theme} ${isFavorite ? 'favorite-active' : ''}`}
           onClick={toggleFavorite}
           title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-          style={{ 
-            backgroundColor: isFavorite ? 'rgba(255, 193, 7, 0.2)' : 'transparent',
-            borderColor: isFavorite ? '#ffc107' : 'transparent',
-            
-          }}
         >
           <StarIcon 
-            className="header-icon" 
-            style={{ 
-              fill: isFavorite ? '#ffc107' : 'currentColor',
-              stroke: isFavorite ? '#ffc107' : 'currentColor',
-            }}
+            className={`header-icon ${isFavorite ? 'star-filled' : ''}` } 
+            style={{fill: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)",
+    stroke: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)"}}
           />
         </button>
-        {/* Breadcrumb */}
         <div className={`breadcrumb ${theme}`}>
           <span className={`breadcrumb-item ${theme}`}>Dashboards</span>
           <span className={`breadcrumb-separator ${theme}`}>/</span>
@@ -98,10 +116,15 @@ export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNo
           </span>
         </div>
       </div>
-      {/* Center Section - Search */}
-      <div className="header-center">
+      
+      {/* 👈 UPDATED SEARCH SECTION */}
+      <div className="header-center" style={{ position: 'relative' }}>
         <Input
           placeholder="Search"
+          value={searchQuery} // 👈 CONTROLLED INPUT
+          onChange={handleSearchChange} // 👈 NEW HANDLER
+          onFocus={handleSearchFocus} // 👈 NEW HANDLER
+          onBlur={handleSearchBlur} // 👈 NEW HANDLER
           prefix={<SearchIcon className="search-icon" style={{fill: theme === "light" ? "inherit" : "rgba(255, 255, 255, 0.2)",
               stroke: theme === "light" ? "inherit" : "rgba(255, 255, 255, 0.2)"}}/>}
           suffix={
@@ -111,10 +134,82 @@ export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNo
           }
           className={`search-input ${theme}`}
         />
+        
+        {/* 👈 NEW SEARCH DROPDOWN */}
+        {showDropdown && searchResults.length > 0 && (
+          <div className={`search-dropdown ${theme}`} style={{
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            right: 0,
+            backgroundColor: theme === 'light' ? 'white' : '#1f1f1f',
+            border: `1px solid ${theme === 'light' ? '#d9d9d9' : '#434343'}`,
+            borderRadius: '8px',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+            zIndex: 1000,
+            maxHeight: '400px',
+            overflowY: 'auto'
+          }}>
+            {searchResults.slice(0, 8).map((result, index) => (
+              <div
+                key={`${result.type}-${result.id}-${index}`}
+                className={`search-result-item ${theme}`}
+                style={{
+                  padding: '12px 16px',
+                  borderBottom: index < Math.min(searchResults.length, 8) - 1 ? `1px solid ${theme === 'light' ? '#f0f0f0' : '#303030'}` : 'none',
+                  cursor: 'pointer'
+                }}
+                onClick={() => handleResultClick(result)}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = theme === 'light' ? '#f5f5f5' : '#262626';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'transparent';
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div>
+                    <div style={{ fontWeight: '500', marginBottom: '4px', color: theme === 'light' ? '#000' : '#fff' }}>
+                      {result.type === 'Order' && result.id}
+                      {result.type === 'Product' && result.name}
+                      {result.type === 'Metric' && result.name}
+                      {result.type === 'Location' && result.name}
+                    </div>
+                    <div style={{ fontSize: '12px', color: theme === 'light' ? '#666' : '#999' }}>
+                      {result.type === 'Order' && `${result.user} - ${result.project}`}
+                      {result.type === 'Product' && result.price}
+                      {result.type === 'Metric' && result.value}
+                      {result.type === 'Location' && result.value}
+                    </div>
+                  </div>
+                  <span style={{
+                    fontSize: '11px',
+                    padding: '2px 8px',
+                    borderRadius: '12px',
+                    backgroundColor: theme === 'light' ? '#f0f0f0' : '#404040',
+                    color: theme === 'light' ? '#666' : '#ccc'
+                  }}>
+                    {result.type}
+                  </span>
+                </div>
+              </div>
+            ))}
+            {searchResults.length > 8 && (
+              <div style={{
+                padding: '8px 16px',
+                textAlign: 'center',
+                fontSize: '12px',
+                color: theme === 'light' ? '#666' : '#999',
+                borderTop: `1px solid ${theme === 'light' ? '#f0f0f0' : '#303030'}`
+              }}>
+                +{searchResults.length - 8} more results
+              </div>
+            )}
+          </div>
+        )}
       </div>
-      {/* Right Section - Actions */}
+
       <div className="header-right">
-        {/* Theme Toggle */}
         <button 
           onClick={() => setTheme(theme === "light" ? "dark" : "light")}
           className={`header-action-button ${theme}`}
@@ -122,22 +217,18 @@ export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNo
           <SunIcon className="header-icon" style={{fill: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)",
     stroke: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)"}}/>
         </button>
-        {/* History/Clock Icon */}
         <button className={`header-action-button ${theme}`} onClick={handleRefresh}>
           <RefreshIcon className="header-icon" style={{fill: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)",
     stroke: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)"}}/>
         </button>
-        {/* Notifications */}
         <button 
           className={`header-action-button notification-button ${theme}`}
           onClick={onToggleNotification}
         >
           <BellIcon className="header-icon" style={{fill: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)",
     stroke: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)"}}/>
-          {/* Notification badge */}
           <span className={`notification-badge ${theme}`}></span>
         </button>
-        {/* Menu Grid Icon */}
         <button 
           className={`header-action-button ${theme}`}
           onClick={onToggleNotification}

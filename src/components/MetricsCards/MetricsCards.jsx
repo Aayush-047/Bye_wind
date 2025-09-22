@@ -29,7 +29,6 @@ const MetricsCards = ({ theme = "light" }) => {
     }
   };
 
-  // Helper to determine text color
   const getTextColor = (metricId) => theme === "light" || metricId === 1 || metricId === 4
     ? 'rgba(28, 28, 28, 1)'
     : 'rgba(255, 255, 255, 1)';
@@ -63,12 +62,10 @@ const MetricsCards = ({ theme = "light" }) => {
           }}
           onClick={() => handleCardClick(metric)}
         >
-          {/* Title */}
           <h3 style={{ margin: '0 0 12px 0', fontSize: '16px', fontWeight: '500', color: getTextColor(metric.id), lineHeight: '1.2' }}>
             {metric.title}
           </h3>
 
-          {/* Value and Change */}
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: 'auto' }}>
             <div style={{ fontSize: '36px', fontWeight: '700', color: getTextColor(metric.id), lineHeight: '1', letterSpacing: '-0.025em' }}>
               {metric.value}

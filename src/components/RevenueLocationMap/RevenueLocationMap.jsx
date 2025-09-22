@@ -29,31 +29,35 @@ const RevenueLocationMap = ({ theme = "light" }) => {
     }
   ];
 
+  const textColor = theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)';
+  const dotColor = theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)';
+  const backgroundColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(247, 249, 251, 1)';
+  const progressBarBg = theme === 'dark' ? 'rgba(168, 197, 218, 0.5)' : 'rgba(168, 197, 218, 0.5)';
+  const mapFilter = theme === 'dark' ? 'brightness(1) contrast(1.2)' : 'brightness(0.9)';
+  const mapOpacity = theme === 'dark' ? 1 : 0.7;
+
   return (
     <div style={{
-      backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(247, 249, 251, 1)',
+      backgroundColor,
       padding: '24px',
       borderRadius: '16px',
       width: '100%',
       height: '318px',
-      gap:'16px',
+      gap: '16px',
     }}>
-      {/* Header */}
       <h3 style={{
         fontWeight: '600',
-        color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)',
+        color: textColor,
         margin: '0 0 16px 0',
         lineHeight: '1.2'
       }}>
         Revenue by Location
       </h3>
 
-      {/* Map Container */}
       <div style={{ 
         position: 'relative',
         marginBottom: '16px',
       }}>
-        {/* World Map Image */}
         <img 
           src={worldMapImage}
           alt="World Map"
@@ -62,12 +66,11 @@ const RevenueLocationMap = ({ theme = "light" }) => {
             height: '82px',
             maxHeight: '100px',
             objectFit: 'contain',
-            filter: theme === 'dark' ? 'brightness(1) contrast(1.2)' : 'brightness(0.9)',
-            opacity: theme === 'dark' ? 1 : 0.7
+            filter: mapFilter,
+            opacity: mapOpacity
           }}
         />
         
-        {/* Location Dots */}
         {locationData.map((location, index) => (
           <div
             key={index}
@@ -76,9 +79,9 @@ const RevenueLocationMap = ({ theme = "light" }) => {
               ...location.dotPosition,
               width: '8px',
               height: '8px',
-              backgroundColor: `${theme === 'dark' ?'rgba(255, 255, 255, 1)':'rgba(28, 28, 28, 1)'}`,
+              backgroundColor: dotColor,
               borderRadius: '50%',
-              border: `2px solid ${theme === 'dark' ? '#ffffff' : '#ffffff'}`,
+              border: '2px solid #ffffff',
               boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
               transform: 'translate(-50%, -50%)',
               zIndex: 10
@@ -88,35 +91,26 @@ const RevenueLocationMap = ({ theme = "light" }) => {
         ))}
       </div>
 
-      {/* Location List */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {locationData.map((location, index) => (
-          <div key={index} style={{ display: 'flex', flexDirection: 'column',  }}>
-            {/* City Name and Revenue */}
+          <div key={index} style={{ display: 'flex', flexDirection: 'column' }}>
             <div style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center'
             }}>
-              <span style={{
-                fontSize: '12px',
-                color:`${theme === 'dark' ?'rgba(255, 255, 255, 1)':'rgba(28, 28, 28, 1)'}`
-              }}>
+              <span style={{ fontSize: '12px', color: textColor }}>
                 {location.city}
               </span>
-              <span style={{
-                fontSize: '12px',
-                color:`${theme === 'dark' ?'rgba(255, 255, 255, 1)':'rgba(28, 28, 28, 1)'}`
-              }}>
+              <span style={{ fontSize: '12px', color: textColor }}>
                 {location.revenue}
               </span>
             </div>
             
-            {/* Progress Bar */}
             <div style={{
               width: '100%',
               height: '4px',
-              backgroundColor: theme === 'dark' ? 'rgba(168, 197, 218, 0.5)' : 'rgba(168, 197, 218, 0.5)',
+              backgroundColor: progressBarBg,
               borderRadius: '2px',
               overflow: 'hidden'
             }}>

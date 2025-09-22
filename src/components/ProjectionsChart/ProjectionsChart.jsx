@@ -45,42 +45,40 @@ const ProjectionsChart = ({ theme = "light" }) => {
     return `${value}M`;
   };
 
+  const backgroundColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(247, 249, 251, 1)';
+  const textColor = theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)';
+  const gridColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(28, 28, 28, 0.05)';
+  const tickColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)';
+  const barColor = 'rgba(168, 197, 218, 1)';
+
   return (
     <div style={{
-      backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(247, 249, 251, 1)',
+      backgroundColor,
       padding: '24px',
       borderRadius: '16px',
       width: '100%',
       height: '257px',
       gap: '16px',
     }}>
-      {/* Header */}
       <h3 style={{
         fontWeight: '600',
-        color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)',
+        color: textColor,
         margin: '0 0 24px 0',
         lineHeight: '20px'
       }}>
         Projections vs Actuals
       </h3>
 
-      {/* Chart Container */}
       <div style={{ width: '100%', height: '180px' }}>
-        <ResponsiveContainer width="100%" height="100%" >
+        <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={data}
-             margin={{
-                top: 10, 
-                right: 10,
-                left: 0,   
-                bottom: 10,
-              }}
+            margin={{ top: 10, right: 10, left: 0, bottom: 10 }}
             barCategoryGap="30%"
           >
-            {/* Grid Lines */}
             <CartesianGrid 
               strokeDasharray="none"
-              stroke={theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(28, 28, 28, 0.05)'}
+              stroke={gridColor}
               horizontal={true}
               vertical={false}
             />
@@ -89,57 +87,37 @@ const ProjectionsChart = ({ theme = "light" }) => {
               dataKey="month"
               axisLine={false}
               tickLine={false}
-              tick={{
-                fontSize: 14,
-                fill: theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)',
-                fontWeight: '400'
-              }}
+              tick={{ fontSize: 14, fill: tickColor, fontWeight: '400' }}
               dy={10}
             />
+            
             <YAxis
               domain={[0, 30]}
               ticks={[0, 10, 20, 30]}
               tickFormatter={formatYAxisLabel}
               axisLine={false}
               tickLine={false}
-              tick={{
-                fontSize: 14,
-                fill: theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)',
-                fontWeight: '400'
-              }}
+              tick={{ fontSize: 14, fill: tickColor, fontWeight: '400' }}
               dx={-20}
             />
             
-            {/* Actuals Bar (Bottom/Darker) */}
             <Bar 
               dataKey="actuals" 
               stackId="stack"
               radius={[0, 0, 4, 4]}
-              fill={theme === 'dark' ? 'rgba(168, 197, 218, 1)' : 'rgba(168, 197, 218, 1)'}
+              fill={barColor}
             />
             
-            {/* Projections Bar (Top/Lighter) */}
             <Bar 
               dataKey="projections" 
               stackId="stack"
               radius={[4, 4, 0, 0]}
-              fill={theme === 'dark' ? 'rgba(168, 197, 218, 1)' : 'rgba(168, 197, 218, 1)'}
-              style={{opacity:'50%'}}
+              fill={barColor}
+              style={{ opacity: '50%' }}
             />
           </BarChart>
         </ResponsiveContainer>
       </div>
-
-      {/* Custom Grid Lines */}
-      <style jsx>{`
-        .recharts-cartesian-grid-horizontal line {
-          stroke: ${theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(28, 28, 28, 0.05)'};
-          stroke-width: 1;
-        }
-        .recharts-cartesian-grid-vertical {
-          display: none;
-        }
-      `}</style>
     </div>
   );
 };

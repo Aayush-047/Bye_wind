@@ -1,41 +1,51 @@
-import React from 'react'
-import MetricsCards from '../../components/MetricsCards/MetricsCards'
-import ProjectionsChart from '../../components/ProjectionsChart/ProjectionsChart'
-import RevenueChart from '../../components/RevenueChart/RevenueChart'
-import RevenueLocationMap from '../../components/RevenueLocationMap/RevenueLocationMap'
-import TopSellingProducts from '../../components/TopSellingProducts/TopSellingProducts'
-import TotalSalesChart from '../../components/TotalSalesChart/TotalSalesChart'
+import React, { useEffect } from 'react';
+import { useSearch } from '../../contexts/SearchContext'; // 👈 ADD IMPORT
+import MetricsCards from '../../components/MetricsCards/MetricsCards';
+import ProjectionsChart from '../../components/ProjectionsChart/ProjectionsChart';
+import RevenueChart from '../../components/RevenueChart/RevenueChart';
+import RevenueLocationMap from '../../components/RevenueLocationMap/RevenueLocationMap';
+import TopSellingProducts from '../../components/TopSellingProducts/TopSellingProducts';
+import TotalSalesChart from '../../components/TotalSalesChart/TotalSalesChart';
+import './Dashboard.css';
 
 const Dashboard = ({ theme }) => {
+  const { setCurrentScreen } = useSearch();
+  
+  useEffect(() => {
+    setCurrentScreen('dashboard');
+  }, [setCurrentScreen]);
+
   return (
-    <div >
-      <h3 style={{fontWeight:600,marginBottom:16,marginTop:16,padding:'4px 8px',color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'inherit'}}>eCommerce</h3>
-      <div style={{display:"flex" , gap :'28px',marginBottom:'28px'}}>
-        <div style={{width:'50%'}}>
+    <div className="dashboard-container">
+      <h3 className={`dashboard-title ${theme === 'dark' ? 'dark-theme' : ''}`}>
+        eCommerce
+      </h3>
+      <div className="dashboard-row">
+        <div className="dashboard-column half-width">
           <MetricsCards theme={theme}/>
         </div>
-        <div style={{width:'50%'}}>
-          <ProjectionsChart theme={theme}/>
+        <div className="dashboard-column half-width">
+          <ProjectionsChart theme={theme} />
         </div>
       </div>
-      <div style={{display:"flex" , gap :'28px',marginBottom:'28px'}}>
-        <div style={{width:'75%'}}>
-          <RevenueChart theme={theme}/>
+      <div className="dashboard-row">
+        <div className="dashboard-column three-quarters-width">
+          <RevenueChart theme={theme}  />
         </div>
-        <div style={{width:'25%'}}>
-          <RevenueLocationMap theme={theme}/>
+        <div className="dashboard-column quarter-width">
+          <RevenueLocationMap theme={theme}  />
         </div>
       </div>
-      <div style={{display:"flex" , gap :'28px',marginBottom:'28px'}}>
-        <div style={{width:'75%'}}>
-          <TopSellingProducts theme={theme}/>
+      <div className="dashboard-row">
+        <div className="dashboard-column three-quarters-width">
+          <TopSellingProducts theme={theme}  />
         </div>
-        <div style={{width:'25%'}}>
-          <TotalSalesChart theme={theme}/>
+        <div className="dashboard-column quarter-width">
+          <TotalSalesChart theme={theme}  />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

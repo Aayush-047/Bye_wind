@@ -1,0 +1,50 @@
+/* Dashboard.css */
+.dashboard-container {
+  padding: 0 8px;
+}
+
+.dashboard-title {
+  font-weight: 600;
+  margin: 16px 0;
+  padding: 4px 8px;
+}
+
+.dashboard-title.dark-theme {
+  color: rgba(255, 255, 255, 1);
+}
+
+.dashboard-row {
+  display: flex;
+  gap: 28px;
+  margin-bottom: 28px;
+}
+
+.dashboard-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.half-width {
+  width: 50%;
+}
+
+.three-quarters-width {
+  width: 75%;
+}
+
+.quarter-width {
+  width: 25%;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .half-width,
+  .three-quarters-width,
+  .quarter-width {
+    width: 100%;
+  }
+}

@@ -1,4 +1,3 @@
-/* CSS Custom Properties for theming */
 :root {
   --layout-bg-color: #ffffff;
 }
@@ -26,7 +25,6 @@
   gap: 8px; 
 } 
 
-/* Remove AntD's default blue background */ 
 .ant-menu-light .ant-menu-item-selected, 
 .ant-menu-light .ant-menu-submenu-selected > .ant-menu-submenu-title {   
   background-color: transparent !important;   
@@ -35,7 +33,6 @@
   position: relative; 
 }  
 
-/* Add left vertical bar */ 
 .ant-menu-item-selected::before, 
 .ant-menu-submenu-selected > .ant-menu-submenu-title::before {   
   content: "";   
@@ -56,7 +53,6 @@
   height: 28px; 
 } 
 
-/* Theme-aware layout background */
 .ant-layout {     
   background-color: var(--layout-bg-color) !important; 
 }
