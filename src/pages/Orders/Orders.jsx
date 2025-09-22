@@ -11,7 +11,7 @@ import DeleteOrderModal from '../../components/Orders/modals/DeleteOrderModal';
 import './Orders.css';
 
 const Orders = ({ theme }) => {
-  const { searchQuery, setCurrentScreen, getFilteredDataForCurrentScreen, getOriginalDataForScreen } = useSearch();
+  const { searchQuery, setCurrentScreen, getFilteredDataForCurrentScreen } = useSearch();
   
   const [data, setData] = useOrdersData();
   const {
