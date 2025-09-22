@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Form, message } from 'antd';
 import { useOrdersData, useOrdersFilters } from '../../components/Orders/hooks/useOrdersData';
-import { isCheckboxAllowed } from '../../components/Orders/utils/ordersUtils';
+import { isCheckboxAllowed,userIconMap } from '../../components/Orders/utils/ordersUtils';
 import { useSearch } from '../../contexts/SearchContext'; 
 import OrdersHeader from '../../components/Orders/components/OrdersHeader';
 import { getOrdersTableColumns } from '../../components/Orders/components/OrdersTableColumns';
@@ -92,6 +92,51 @@ const Orders = ({ theme }) => {
     } else if (action === 'delete') {
       setRecordToDelete(record);
       setIsDeleteModalVisible(true);
+    }
+  };
+
+  const handleAddOrder = (values) => {
+    if (selectedRecord) {
+      const updatedData = data.map(item => {
+        if (item.key === selectedRecord.key) {
+          return {
+            ...item,
+            user: { name: values.userName },
+            project: values.project,
+            address: values.address,
+            date: values.date ? values.date.format('MMM D, YYYY') : item.date,
+            status: values.status,
+          };
+        }
+        return item;
+      });
+      
+      setData(updatedData);
+      applyFilters(searchText, statusFilter, sortOrder, updatedData);
+      
+      setIsAddModalVisible(false);
+      form.resetFields();
+      setSelectedRecord(null);
+      message.success('Order updated successfully!');
+    } else {
+      const newOrder = {
+        key: `order_${Date.now()}`,
+        orderId: `#CM98${(data.length + 1).toString().padStart(2, '0')}`,
+        user: { name: values.userName },
+        project: values.project,
+        address: values.address,
+        date: values.date ? values.date.format('MMM D, YYYY') : 'Just now',
+        status: values.status,
+        icon: userIconMap[values.userName] || 'Contact1Icon'
+      };
+      
+      const updatedData = [...data, newOrder];
+      setData(updatedData);
+      applyFilters(searchText, statusFilter, sortOrder, updatedData);
+      
+      setIsAddModalVisible(false);
+      form.resetFields();
+      message.success('Order added successfully!');
     }
   };
 
@@ -238,6 +283,7 @@ const Orders = ({ theme }) => {
           setSelectedRecord(null);
         }}
         onOk={() => form.submit()}
+        submit={handleAddOrder}
         form={form}
         selectedRecord={selectedRecord}
         isDark={isDark}

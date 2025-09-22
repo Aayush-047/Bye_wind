@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip } from 'recharts';
 import './ProjectionsChart.css';
 
 const ProjectionsChart = ({ theme = "light" }) => {
@@ -107,12 +107,86 @@ const ProjectionsChart = ({ theme = "light" }) => {
     }
   };
 
-  const config = getResponsiveConfig();
   const backgroundColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(247, 249, 251, 1)';
   const textColor = theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)';
   const gridColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(28, 28, 28, 0.05)';
   const tickColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)';
   const barColor = 'rgba(168, 197, 218, 1)';
+  const tooltipBgColor = theme === 'dark' ? 'rgba(40, 40, 40, 0.95)' : 'rgba(255, 255, 255, 0.95)';
+  const tooltipTextColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.9)' : 'rgba(28, 28, 28, 0.9)';
+  const tooltipBorderColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(28, 28, 28, 0.1)';
+
+  const config = getResponsiveConfig();
+
+  // Custom Tooltip component
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div style={{
+          backgroundColor: tooltipBgColor,
+          border: `1px solid ${tooltipBorderColor}`,
+          borderRadius: '8px',
+          padding: '12px',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+        }}>
+          <p style={{ 
+            color: tooltipTextColor, 
+            margin: '0 0 8px 0', 
+            fontWeight: '600',
+            fontSize: '14px'
+          }}>
+            {label}
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{
+                width: '12px',
+                height: '12px',
+                backgroundColor: barColor,
+                borderRadius: '2px'
+              }}></div>
+              <span style={{ 
+                color: tooltipTextColor, 
+                fontSize: '13px'
+              }}>
+                Actuals: <strong>{payload[0].value}M</strong>
+              </span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{
+                width: '12px',
+                height: '12px',
+                backgroundColor: barColor,
+                borderRadius: '2px',
+                opacity: 0.5
+              }}></div>
+              <span style={{ 
+                color: tooltipTextColor, 
+                fontSize: '13px'
+              }}>
+                Projections: <strong>{payload[1].value}M</strong>
+              </span>
+            </div>
+            <div style={{ 
+              marginTop: '4px',
+              paddingTop: '4px',
+              borderTop: `1px solid ${tooltipBorderColor}`
+            }}>
+              <span style={{ 
+                color: tooltipTextColor, 
+                fontSize: '13px',
+                fontWeight: '600'
+              }}>
+                Total: <strong>{payload[0].value + payload[1].value}M</strong>
+              </span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return null;
+  };
 
   return (
     <div className={`projections-chart-container ${theme}`} style={{
@@ -162,6 +236,10 @@ const ProjectionsChart = ({ theme = "light" }) => {
               tickLine={false}
               tick={{ fontSize: config.tickFontSize, fill: tickColor, fontWeight: '400' }}
               dx={config.dx}
+            />
+            <Tooltip 
+              content={<CustomTooltip />}
+              cursor={{ fill: 'transparent' }}
             />
             
             <Bar 

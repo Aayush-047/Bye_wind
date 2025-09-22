@@ -48,7 +48,7 @@ const TopSellingProducts = ({ theme = "light" }) => {
     paddingTop: '11px',
     paddingBottom: '11px',
     paddingRight: '24px',
-    color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 0.4)',
+    color: theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)',
   };
 
   return (

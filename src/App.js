@@ -8,6 +8,7 @@ import Orders from "./pages/Orders/Orders";
 import { SearchProvider } from "./contexts/SearchContext";
 import './App.css'
 import NotificationPanel from "./components/NotificationPanel/NotificationPanel";
+import ComingSoon from "./pages/ComingSoon/ComingSoon";
 
 const { Content } = Layout;
 
@@ -103,6 +104,7 @@ function AppContent() {
             <Routes>
               <Route path="/" element={<Dashboard theme={theme} />} />
               <Route path="/orders" element={<Orders theme={theme} />} />
+              <Route path="*" element={<ComingSoon theme={theme} />} />
             </Routes>
           </Content>
         </Layout>

@@ -6,6 +6,7 @@ const AddEditOrderModal = ({
   onCancel,
   onOk,
   form,
+  submit,
   selectedRecord,
   isDark
 }) => {
@@ -20,7 +21,7 @@ const AddEditOrderModal = ({
       <Form
         form={form}
         layout="vertical"
-        onFinish={onOk}
+        onFinish={submit}
       >
         <Form.Item
           name="userName"

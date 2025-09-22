@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useSearch } from '../../contexts/SearchContext'; // 👈 ADD IMPORT
+import { useSearch } from '../../contexts/SearchContext';
 import MetricsCards from '../../components/MetricsCards/MetricsCards';
 import ProjectionsChart from '../../components/ProjectionsChart/ProjectionsChart';
 import RevenueChart from '../../components/RevenueChart/RevenueChart';

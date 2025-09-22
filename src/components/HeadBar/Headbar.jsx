@@ -106,10 +106,10 @@ export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNo
           />
         </button>
         <div className={`breadcrumb ${theme} breadcrumb-responsive`}>
-          <span className={`breadcrumb-item ${theme}`}>Dashboards</span>
+          <span className={`breadcrumb-item ${theme}`}>{breadcrumb.main}</span>
           <span className={`breadcrumb-separator ${theme}`}>/</span>
           <span className={`breadcrumb-current ${theme}`}>
-            Default
+            {breadcrumb.current}
           </span>
         </div>
       </div>
