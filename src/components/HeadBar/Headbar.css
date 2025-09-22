@@ -223,3 +223,310 @@
   background-color: rgba(255, 193, 7, 0.3);
   border: 1px solid #ffc107;
 }
+
+/* Hide breadcrumbs on smaller screens */
+@media (max-width: 768px) {
+  .breadcrumb-responsive {
+    display: none !important;
+  }
+}
+
+/* Alternative: Hide on very small screens (mobile) */
+@media (max-width: 480px) {
+  .breadcrumb-responsive {
+    display: none !important;
+  }
+}
+
+.header {   
+  padding: 0px 28px;   
+  display: flex;   
+  align-items: center;   
+  justify-content: space-between;   
+  height: 64px; 
+}  
+
+.header.dark {   
+  background: #1f1f1f;   
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+}  
+
+.header.light {   
+  background: #fff;   
+  border-bottom: 1px solid rgba(28, 28, 28, 0.1); 
+}  
+
+.header-left {   
+  display: flex;   
+  align-items: center;   
+  gap: 8px;   
+  flex: 1; 
+}  
+
+.header-button {   
+  background: none;   
+  border: none;   
+  cursor: pointer;   
+  border-radius: 4px;   
+  display: flex;   
+  align-items: center; 
+}  
+
+.header-button.dark {   
+  color: #fff; 
+}  
+
+.header-button.light {   
+  color: #666; 
+}  
+
+.header-icon {   
+  font-size: 16px; 
+}  
+
+.breadcrumb {   
+  display: flex;   
+  align-items: center;   
+  gap: 8px;   
+  font-size: 14px; 
+}  
+
+.breadcrumb.dark {   
+  color: #ccc; 
+}  
+
+.breadcrumb.light {   
+  color: #666; 
+}  
+
+.breadcrumb-item.dark {   
+  color: #888; 
+}  
+
+.breadcrumb-item.light {   
+  color: rgb(28, 28, 28, 0.4); 
+}  
+
+.breadcrumb-separator.dark {   
+  color: #888; 
+}  
+
+.breadcrumb-separator.light {   
+  color: #999; 
+}  
+
+.breadcrumb-current.dark {   
+  color: #fff; 
+}  
+
+.breadcrumb-current.light {   
+  color: rgb(28, 28, 28); 
+}  
+
+.header-center {   
+  display: flex;   
+  margin: 0 24px; 
+}  
+
+.search-input {   
+  width: 160px;   
+  height: 28px;   
+  border-radius: 8px;   
+  padding: 4px 8px; 
+}  
+
+.search-input.dark {   
+  background-color: rgba(255, 255, 255, 0.1);   
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+}  
+
+.search-input.light {   
+  background-color: rgb(28, 28, 28,0.05);   
+  border: 1px solid rgb(28, 28, 28,0.05); 
+}  
+
+.search-input.dark .ant-input {   
+  background-color: transparent;   
+  color: #fff; 
+}  
+
+.search-input.light .ant-input {   
+  background-color: transparent;   
+  color: rgb(28, 28, 28); 
+}  
+
+.search-icon {   
+  color: #999; 
+}  
+
+.search-shortcut {   
+  font-size: 12px;   
+  padding: 2px 6px;   
+  border-radius: 4px;   
+  font-family: monospace; 
+}  
+
+.search-shortcut.dark {   
+  color: rgba(255, 255, 255, 0.2);   
+  background-color: #333; 
+}  
+
+.search-shortcut.light {   
+  color: #999;   
+  background-color: #f5f5f5; 
+}  
+
+.search-input.dark input::placeholder {   
+  color: rgba(255, 255, 255, 0.2); 
+}  
+
+.header-right {   
+  display: flex;   
+  align-items: center;   
+  gap: 8px; 
+}  
+
+.header-action-button {   
+  background: none;   
+  border: none;   
+  cursor: pointer;   
+  border-radius: 6px;   
+  display: flex;   
+  align-items: center;   
+  transition: background-color 0.2s; 
+}  
+
+.header-action-button.dark {   
+  color: #fff; 
+}  
+
+.header-action-button.light {   
+  color: #666; 
+}  
+
+.header-action-button.dark:hover {   
+  background-color: #333; 
+}  
+
+.header-action-button.light:hover {   
+  background-color: #f0f0f0; 
+}  
+
+.notification-button {   
+  position: relative; 
+}  
+
+.notification-badge {   
+  position: absolute;   
+  top: 6px;   
+  right: 6px;   
+  width: 8px;   
+  height: 8px;   
+  background-color: #ff4d4f;   
+  border-radius: 50%; 
+}  
+
+.notification-badge.dark {   
+  border: 2px solid #1f1f1f; 
+}  
+
+.notification-badge.light {   
+  border: 2px solid #fff; 
+}  
+
+.header-button .header-icon {   
+  fill: #666;   
+  color: #666; 
+}  
+
+.header-button.dark .header-icon {   
+  fill: rgba(255, 255, 255, 0.7);   
+  color: rgba(255, 255, 255, 0.7); 
+}  
+
+.header-button .star-filled {   
+  fill: #ffc107;   
+  color: #ffc107; 
+}  
+
+.header-button.dark .star-filled {   
+  fill: #ffc107;   
+  color: #ffc107; 
+}  
+
+.header-button.favorite-active {   
+  background-color: rgba(255, 193, 7, 0.2);   
+  border: 1px solid #ffc107; 
+}  
+
+.header-button.dark.favorite-active {   
+  background-color: rgba(255, 193, 7, 0.3);   
+  border: 1px solid #ffc107; 
+}  
+
+/* Hide breadcrumbs on smaller screens */ 
+@media (max-width: 768px) {   
+  .breadcrumb-responsive {     
+    display: none !important;   
+  } 
+}  
+
+/* Alternative: Hide on very small screens (mobile) */ 
+@media (max-width: 480px) {   
+  .breadcrumb-responsive {     
+    display: none !important;   
+  } 
+} 
+
+/* Mobile responsive styles for reduced icon gaps */
+@media (max-width: 768px) {
+  .header {
+    padding: 0px 16px; /* Reduce overall header padding */
+  }
+  
+  .header-left {
+    gap: 4px; /* Reduce gap between left icons */
+  }
+  
+  .header-right {
+    gap: 4px; /* Reduce gap between right icons */
+  }
+  
+  .header-center {
+    margin: 0 12px; /* Reduce center margin */
+  }
+  
+  .search-input {
+    width: 120px; /* Make search input smaller on mobile */
+  }
+}
+
+/* Even smaller gaps for very small screens */
+@media (max-width: 480px) {
+  .header {
+    padding: 0px 12px;
+  }
+  
+  .header-left {
+    gap: 2px; /* Very small gap for mobile */
+  }
+  
+  .header-right {
+    gap: 2px; /* Very small gap for mobile */
+  }
+  
+  .header-center {
+    margin: 0 8px;
+  }
+  
+  .search-input {
+    width: 100px; /* Even smaller search on very small screens */
+  }
+  
+  .header-button,
+  .header-action-button {
+    padding: 4px; /* Add some padding to maintain touch targets */
+    min-width: 32px; /* Ensure minimum touch target size */
+    min-height: 32px;
+  }
+}

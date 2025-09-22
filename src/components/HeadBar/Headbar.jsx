@@ -6,7 +6,7 @@ import { ReactComponent as SunIcon } from "../../assets/icons/sun.svg";
 import { ReactComponent as RefreshIcon } from "../../assets/icons/refresh.svg";
 import { ReactComponent as BellIcon } from "../../assets/icons/bell.svg";
 import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg";
-import { useSearch } from '../../contexts/SearchContext'; // 👈 NEW IMPORT
+import { useSearch } from '../../contexts/SearchContext'; 
 import './Headbar.css'
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,6 @@ import { useNavigate } from 'react-router-dom';
 const { Header } = Layout;
 
 export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNotification, notificationOpen, breadcrumb }) {
-  // 👈 ADD SEARCH CONTEXT
   const { searchQuery, handleSearch, searchResults } = useSearch();
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
@@ -60,7 +59,6 @@ export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNo
     window.location.reload();
   };
 
-  // 👈 NEW SEARCH HANDLERS
   const handleSearchChange = (e) => {
     const value = e.target.value;
     handleSearch(value);
@@ -74,15 +72,14 @@ export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNo
   };
 
   const handleSearchBlur = () => {
-    // Delay hiding dropdown to allow clicks on results
     setTimeout(() => setShowDropdown(false), 150);
   };
 
   const handleResultClick = (result) => {
   if (result.screen === 'orders') {
-    navigate('/orders'); // If using React Router
+    navigate('/orders'); 
   } else if (result.screen === 'dashboard') {
-    navigate('/'); // Navigate to dashboard
+    navigate('/');
   }
   setShowDropdown(false);
 };
@@ -108,7 +105,7 @@ export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNo
     stroke: theme === "light" ? "inherit" : "rgba(255, 255, 255, 1)"}}
           />
         </button>
-        <div className={`breadcrumb ${theme}`}>
+        <div className={`breadcrumb ${theme} breadcrumb-responsive`}>
           <span className={`breadcrumb-item ${theme}`}>Dashboards</span>
           <span className={`breadcrumb-separator ${theme}`}>/</span>
           <span className={`breadcrumb-current ${theme}`}>
@@ -117,14 +114,13 @@ export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNo
         </div>
       </div>
       
-      {/* 👈 UPDATED SEARCH SECTION */}
       <div className="header-center" style={{ position: 'relative' }}>
         <Input
           placeholder="Search"
-          value={searchQuery} // 👈 CONTROLLED INPUT
-          onChange={handleSearchChange} // 👈 NEW HANDLER
-          onFocus={handleSearchFocus} // 👈 NEW HANDLER
-          onBlur={handleSearchBlur} // 👈 NEW HANDLER
+          value={searchQuery} 
+          onChange={handleSearchChange} 
+          onFocus={handleSearchFocus} 
+          onBlur={handleSearchBlur} 
           prefix={<SearchIcon className="search-icon" style={{fill: theme === "light" ? "inherit" : "rgba(255, 255, 255, 0.2)",
               stroke: theme === "light" ? "inherit" : "rgba(255, 255, 255, 0.2)"}}/>}
           suffix={
@@ -135,7 +131,6 @@ export default function HeaderBar({ theme, setTheme, onToggleSidebar, onToggleNo
           className={`search-input ${theme}`}
         />
         
-        {/* 👈 NEW SEARCH DROPDOWN */}
         {showDropdown && searchResults.length > 0 && (
           <div className={`search-dropdown ${theme}`} style={{
             position: 'absolute',

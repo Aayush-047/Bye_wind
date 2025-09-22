@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
+import './RevenueChart.css';
 
 const RevenueChart = ({ theme = "light" }) => {
+  const [windowSize, setWindowSize] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowSize(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const data = [
     { month: 'Jan', currentWeek: 13, previousWeek: 8 },
     { month: 'Feb', currentWeek: 9, previousWeek: 17 },
@@ -22,6 +31,79 @@ const RevenueChart = ({ theme = "light" }) => {
     return `${value}M`;
   };
 
+  const getResponsiveConfig = () => {
+    if (windowSize <= 480) {
+      return {
+        height: '200px',
+        chartHeight: '120px',
+        padding: '16px',
+        headerGap: '12px',
+        legendGap: '16px',
+        titleFontSize: '14px',
+        legendFontSize: '11px',
+        tickFontSize: 10,
+        margin: { top: 10, right: 5, left: -10, bottom: 10 },
+        dx: -15,
+        dy: 8,
+        strokeWidth: 2,
+        activeDotRadius: 3,
+        showValues: false
+      };
+    } else if (windowSize <= 768) {
+      return {
+        height: '220px',
+        chartHeight: '140px',
+        padding: '18px',
+        headerGap: '14px',
+        legendGap: '18px',
+        titleFontSize: '15px',
+        legendFontSize: '11px',
+        tickFontSize: 11,
+        margin: { top: 15, right: 10, left: -5, bottom: 15 },
+        dx: -18,
+        dy: 9,
+        strokeWidth: 2.5,
+        activeDotRadius: 3.5,
+        showValues: true
+      };
+    } else if (windowSize <= 1024) {
+      return {
+        height: '280px',
+        chartHeight: '200px',
+        padding: '20px',
+        headerGap: '16px',
+        legendGap: '20px',
+        titleFontSize: '16px',
+        legendFontSize: '12px',
+        tickFontSize: 12,
+        margin: { top: 15, right: 15, left: 0, bottom: 15 },
+        dx: -18,
+        dy: 9,
+        strokeWidth: 3,
+        activeDotRadius: 4,
+        showValues: true
+      };
+    } else {
+      return {
+        height: '318px',
+        chartHeight: '232px',
+        padding: '24px',
+        headerGap: '16px',
+        legendGap: '24px',
+        titleFontSize: '16px',
+        legendFontSize: '12px',
+        tickFontSize: 12,
+        margin: { top: 20, right: 20, left: 0, bottom: 20 },
+        dx: -20,
+        dy: 10,
+        strokeWidth: 3,
+        activeDotRadius: 4,
+        showValues: true
+      };
+    }
+  };
+
+  const config = getResponsiveConfig();
   const backgroundColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(247, 249, 251, 1)';
   const textColor = theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)';
   const separatorColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(28, 28, 28, 0.2)';
@@ -33,60 +115,104 @@ const RevenueChart = ({ theme = "light" }) => {
   const tickColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(28, 28, 28, 0.4)';
 
   return (
-    <div style={{
+    <div className={`revenue-chart-container ${theme}`} style={{
       backgroundColor,
-      padding: '24px',
+      padding: config.padding,
       borderRadius: '16px',
       width: '100%',
-      height: '318px',
+      height: config.height,
     }}>
-      <div style={{
+      <div className="revenue-header" style={{
         display: 'flex',
         alignItems: 'center',
-        marginBottom: '16px',
+        marginBottom: config.headerGap,
         flexWrap: 'wrap',
-        gap: '16px'
+        gap: config.headerGap
       }}>
-        <h3 style={{
+        <h3 className="revenue-title" style={{
           fontWeight: '600',
           color: textColor,
           margin: '0',
-          lineHeight: '1.2'
+          lineHeight: '1.2',
+          fontSize: config.titleFontSize
         }}>
           Revenue
         </h3> 
-        <div style={{fontSize:'14px', color: separatorColor}}>|</div>
-        <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        {windowSize > 480 && (
+          <>
+            <div style={{fontSize:'14px', color: separatorColor}}>|</div>
+            <div className="revenue-legend" style={{ 
+              display: 'flex', 
+              gap: config.legendGap, 
+              alignItems: 'center',
+              flexWrap: windowSize <= 768 ? 'wrap' : 'nowrap'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  backgroundColor: currentWeekDotColor
+                }} />
+                <span className="legend-text" style={{ 
+                  fontSize: config.legendFontSize, 
+                  color: textColor 
+                }}>
+                  Current Week {config.showValues && <span style={{ fontWeight: '600' }}>$58,211</span>}
+                </span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  backgroundColor: previousWeekDotColor
+                }} />
+                <span className="legend-text" style={{ 
+                  fontSize: config.legendFontSize, 
+                  color: textColor 
+                }}>
+                  Previous Week {config.showValues && <span style={{ fontWeight: '600' }}>$68,768</span>}
+                </span>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+
+      {windowSize <= 480 && (
+        <div className="mobile-legend" style={{
+          display: 'flex',
+          gap: '16px',
+          marginBottom: '12px',
+          justifyContent: 'space-between'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <div style={{
-              width: '8px',
-              height: '8px',
+              width: '6px',
+              height: '6px',
               borderRadius: '50%',
               backgroundColor: currentWeekDotColor
             }} />
-            <span style={{ fontSize: '12px', color: textColor }}>
-              Current Week <span style={{ fontWeight: '600' }}>$58,211</span>
-            </span>
+            <span style={{ fontSize: '10px', color: textColor }}>Current</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <div style={{
-              width: '8px',
-              height: '8px',
+              width: '6px',
+              height: '6px',
               borderRadius: '50%',
               backgroundColor: previousWeekDotColor
             }} />
-            <span style={{ fontSize: '12px', color: textColor }}>
-              Previous Week <span style={{ fontWeight: '600' }}>$68,768</span>
-            </span>
+            <span style={{ fontSize: '10px', color: textColor }}>Previous</span>
           </div>
         </div>
-      </div>
+      )}
 
-      <div style={{ width: '100%', height: '232px' }}>
+      <div style={{ width: '100%', height: config.chartHeight }}>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={solidLineData}
-            margin={{ top: 20, right: 20, left: 0, bottom: 20 }}
+            margin={config.margin}
           >
             <CartesianGrid 
               strokeDasharray="none"
@@ -99,8 +225,8 @@ const RevenueChart = ({ theme = "light" }) => {
               dataKey="month"
               axisLine={false}
               tickLine={false}
-              tick={{ fontSize: 12, fill: tickColor }}
-              dy={10}
+              tick={{ fontSize: config.tickFontSize, fill: tickColor }}
+              dy={config.dy}
             />
             
             <YAxis
@@ -109,26 +235,26 @@ const RevenueChart = ({ theme = "light" }) => {
               tickFormatter={formatYAxisLabel}
               axisLine={false}
               tickLine={false}
-              tick={{ fontSize: 12, fill: tickColor }}
-              dx={-20}
+              tick={{ fontSize: config.tickFontSize, fill: tickColor }}
+              dx={config.dx}
             />
             
             <Line 
               type="monotone"
               dataKey="previousWeek"
               stroke={previousWeekLineColor}
-              strokeWidth={3}
+              strokeWidth={config.strokeWidth}
               dot={false}
-              activeDot={{ r: 4, fill: previousWeekLineColor }}
+              activeDot={{ r: config.activeDotRadius, fill: previousWeekLineColor }}
             />
             
             <Line 
               type="monotone"
               dataKey="currentWeekSolid"
               stroke={currentWeekLineColor}
-              strokeWidth={3}
+              strokeWidth={config.strokeWidth}
               dot={false}
-              activeDot={{ r: 4, fill: currentWeekLineColor }}
+              activeDot={{ r: config.activeDotRadius, fill: currentWeekLineColor }}
               connectNulls={false}
             />
             
@@ -136,10 +262,10 @@ const RevenueChart = ({ theme = "light" }) => {
               type="monotone"
               dataKey="currentWeekDashed"
               stroke={currentWeekLineColor}
-              strokeWidth={3}
+              strokeWidth={config.strokeWidth}
               strokeDasharray="8 4"
               dot={false}
-              activeDot={{ r: 4, fill: currentWeekLineColor }}
+              activeDot={{ r: config.activeDotRadius, fill: currentWeekLineColor }}
               connectNulls={false}
             />
           </LineChart>

@@ -4,11 +4,30 @@
   border-left: 1px solid #f0f0f0;
   overflow-y: auto;
   padding: 16px;
+  transition: transform 0.3s ease-in-out;
 }
 
 .notification-panel--dark {
   background-color: #1f1f1f;
   border-left: 1px solid #333;
+}
+
+/* Mobile overlay */
+.notification-panel-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.notification-panel-overlay--active {
+  opacity: 1;
 }
 
 .notification-panel__header {
@@ -22,6 +41,38 @@
 .notification-panel__title {
   margin: 0;
   font-weight: 600;
+}
+
+/* Close button for mobile */
+.notification-panel__close {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.notification-panel__close:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.notification-panel__close--dark {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.notification-panel__close--dark:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.notification-panel__content {
+  flex: 1;
+  overflow-y: auto;
 }
 
 .notification-panel__section {
@@ -220,4 +271,65 @@
 
 .contact-item__name--dark {
   color: #fff;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .notification-panel-overlay {
+    display: block;
+  }
+
+  .notification-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100vh;
+    z-index: 1000;
+    border-left: none;
+    border-radius: 0;
+    transform: translateX(100%);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .notification-panel--open {
+    transform: translateX(0);
+  }
+
+  .notification-panel__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .notification-panel__header {
+    padding: 16px;
+    border-bottom: 1px solid #f0f0f0;
+    flex-shrink: 0;
+  }
+
+  .notification-panel--dark .notification-panel__header {
+    border-bottom: 1px solid #333;
+  }
+
+  .notification-panel__content {
+    padding: 16px;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  /* Adjust padding for mobile */
+  .notification-panel {
+    padding: 0;
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .notification-panel {
+    width: 320px !important;
+  }
 }

@@ -1,6 +1,16 @@
+import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
+import './ProjectionsChart.css';
 
 const ProjectionsChart = ({ theme = "light" }) => {
+  const [windowSize, setWindowSize] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowSize(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const data = [
     {
       month: 'Jan',
@@ -45,6 +55,59 @@ const ProjectionsChart = ({ theme = "light" }) => {
     return `${value}M`;
   };
 
+  const getResponsiveConfig = () => {
+    if (windowSize <= 480) {
+      return {
+        height: '160px',
+        chartHeight: '120px',
+        margin: { top: 5, right: 5, left: -10, bottom: 5 },
+        barCategoryGap: "20%",
+        tickFontSize: 11,
+        titleFontSize: '14px',
+        padding: '16px',
+        dx: -15,
+        dy: 8
+      };
+    } else if (windowSize <= 768) {
+      return {
+        height: '180px',
+        chartHeight: '130px',
+        margin: { top: 8, right: 8, left: -5, bottom: 8 },
+        barCategoryGap: "25%",
+        tickFontSize: 12,
+        titleFontSize: '15px',
+        padding: '18px',
+        dx: -18,
+        dy: 9
+      };
+    } else if (windowSize <= 1024) {
+      return {
+        height: '220px',
+        chartHeight: '160px',
+        margin: { top: 8, right: 8, left: 0, bottom: 8 },
+        barCategoryGap: "28%",
+        tickFontSize: 13,
+        titleFontSize: '16px',
+        padding: '20px',
+        dx: -18,
+        dy: 9
+      };
+    } else {
+      return {
+        height: '257px',
+        chartHeight: '180px',
+        margin: { top: 10, right: 10, left: 0, bottom: 10 },
+        barCategoryGap: "30%",
+        tickFontSize: 14,
+        titleFontSize: '16px',
+        padding: '24px',
+        dx: -20,
+        dy: 10
+      };
+    }
+  };
+
+  const config = getResponsiveConfig();
   const backgroundColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(247, 249, 251, 1)';
   const textColor = theme === 'dark' ? 'rgba(255, 255, 255, 1)' : 'rgba(28, 28, 28, 1)';
   const gridColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(28, 28, 28, 0.05)';
@@ -52,29 +115,29 @@ const ProjectionsChart = ({ theme = "light" }) => {
   const barColor = 'rgba(168, 197, 218, 1)';
 
   return (
-    <div style={{
+    <div className={`projections-chart-container ${theme}`} style={{
       backgroundColor,
-      padding: '24px',
+      padding: config.padding,
       borderRadius: '16px',
       width: '100%',
-      height: '257px',
-      gap: '16px',
+      height: config.height,
     }}>
-      <h3 style={{
+      <h3 className="projections-title" style={{
         fontWeight: '600',
         color: textColor,
-        margin: '0 0 24px 0',
-        lineHeight: '20px'
+        margin: '0 0 16px 0',
+        lineHeight: '20px',
+        fontSize: config.titleFontSize
       }}>
         Projections vs Actuals
       </h3>
 
-      <div style={{ width: '100%', height: '180px' }}>
+      <div style={{ width: '100%', height: config.chartHeight }}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={data}
-            margin={{ top: 10, right: 10, left: 0, bottom: 10 }}
-            barCategoryGap="30%"
+            margin={config.margin}
+            barCategoryGap={config.barCategoryGap}
           >
             <CartesianGrid 
               strokeDasharray="none"
@@ -87,8 +150,8 @@ const ProjectionsChart = ({ theme = "light" }) => {
               dataKey="month"
               axisLine={false}
               tickLine={false}
-              tick={{ fontSize: 14, fill: tickColor, fontWeight: '400' }}
-              dy={10}
+              tick={{ fontSize: config.tickFontSize, fill: tickColor, fontWeight: '400' }}
+              dy={config.dy}
             />
             
             <YAxis
@@ -97,8 +160,8 @@ const ProjectionsChart = ({ theme = "light" }) => {
               tickFormatter={formatYAxisLabel}
               axisLine={false}
               tickLine={false}
-              tick={{ fontSize: 14, fill: tickColor, fontWeight: '400' }}
-              dx={-20}
+              tick={{ fontSize: config.tickFontSize, fill: tickColor, fontWeight: '400' }}
+              dx={config.dx}
             />
             
             <Bar 

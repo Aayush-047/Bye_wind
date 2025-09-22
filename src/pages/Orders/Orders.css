@@ -1,6 +1,13 @@
-/* Orders.css - Production Optimized */
+/* Orders.css - Responsive Optimized */
 .orders-container {
   background-color: white;
+  padding: 0 8px;
+}
+
+.orders-title {
+  font-weight: 600;
+  margin: 16px 0;
+  padding: 4px 8px;
 }
 
 .orders-container .orders-header {
@@ -13,6 +20,7 @@
   background-color: rgba(247, 249, 251, 1);
   height: auto;
   border-radius: 8px;
+  margin-bottom: 16px;
 }
 
 .orders-header-left {
@@ -50,6 +58,11 @@
   min-width: 200px;
   border: 1px solid rgba(28, 28, 28, 0.1);
   color: rgba(28, 28, 28, 1);
+  border-radius: 8px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
   border-radius: 8px;
 }
 
@@ -112,6 +125,7 @@
   font-size: 16px;
 }
 
+/* Table Styles */
 .ant-checkbox-checked .ant-checkbox-inner {
   background-color: rgba(28, 28, 28, 1);
   border-color: rgba(28, 28, 28, 1);
@@ -182,6 +196,7 @@
   border-right: none;
 }
 
+/* Pagination Styles */
 .pagination-container .ant-pagination-item {
   border: none;
   background: transparent;
@@ -247,6 +262,7 @@
   box-shadow: none;
 }
 
+/* Button Styles */
 .ant-btn {
   border: 1px solid rgba(28, 28, 28, 0.1);
   height: 32px;
@@ -274,6 +290,7 @@
   background-color: rgba(28, 28, 28, 0.04);
 }
 
+/* Dark Theme Styles */
 .orders-container .orders-header.dark-theme {
   background-color: rgba(255, 255, 255, 0.05);
 }
@@ -364,18 +381,277 @@
   fill: rgba(255, 255, 255, 1);
 }
 
+/* Tablet Responsive Styles (768px - 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .orders-container {
+    padding: 0 12px;
+  }
+  
+  .orders-container .orders-header {
+    padding: 10px;
+    gap: 10px;
+  }
+  
+  .orders-search {
+    min-width: 180px;
+  }
+  
+  .ant-table-thead > tr > th,
+  .ant-table-tbody > tr > td {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+  
+  .user-cell {
+    gap: 10px;
+  }
+  
+  .user-icon-container {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .user-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Mobile Responsive Styles (≤768px) */
 @media (max-width: 768px) {
+  .orders-container {
+    padding: 0 16px;
+  }
+  
+  .orders-container.mobile-view {
+    padding: 0 12px;
+  }
+  
+  .orders-title {
+    margin: 12px 0;
+    font-size: 18px;
+  }
+  
   .orders-container .orders-header {
     flex-direction: column;
     align-items: stretch;
+    padding: 12px;
+    gap: 12px;
   }
   
   .orders-header-left {
-    justify-content: center;
-    margin-bottom: 12px;
+    justify-content: flex-start;
+    margin-bottom: 8px;
   }
   
   .orders-search {
     width: 100%;
+    min-width: unset;
+  }
+  
+  .table-wrapper {
+    margin: 0 -12px;
+    border-radius: 0;
+  }
+  
+  .ant-table-thead > tr > th,
+  .ant-table-tbody > tr > td {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  
+  .ant-table-thead > tr > th:first-child,
+  .ant-table-tbody > tr > td:first-child {
+    padding: 8px 12px;
+  }
+  
+  .user-cell {
+    gap: 8px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .user-icon-container {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .user-icon {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .status-cell {
+    gap: 6px;
+  }
+  
+  .status-dot {
+    width: 4px;
+    height: 4px;
+  }
+  
+  .pagination-container {
+    text-align: center;
+    margin-top: 16px;
+  }
+  
+  .pagination-container .ant-pagination-item,
+  .pagination-container .ant-pagination-prev,
+  .pagination-container .ant-pagination-next {
+    margin: 0 2px;
+  }
+  
+  .pagination-container .ant-pagination-item a,
+  .pagination-container .ant-pagination-prev .ant-pagination-item-link,
+  .pagination-container .ant-pagination-next .ant-pagination-item-link {
+    padding: 4px 6px;
+    font-size: 12px;
+  }
+}
+
+/* Mobile Phone Styles (≤480px) */
+@media (max-width: 480px) {
+  .orders-container {
+    padding: 0 12px;
+  }
+  
+  .orders-title.mobile-title {
+    font-size: 16px;
+    margin: 8px 0;
+  }
+  
+  .search-indicator {
+    text-align: center;
+    margin-top: 4px;
+  }
+  
+  .orders-container .orders-header {
+    padding: 8px;
+    gap: 8px;
+    border-radius: 6px;
+  }
+  
+  .orders-header-left {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  
+  .header-icon-button {
+    padding: 6px;
+  }
+  
+  .header-icon {
+    font-size: 14px;
+  }
+  
+  .table-wrapper.mobile-table {
+    margin: 0 -12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .custom-table.mobile-table {
+    font-size: 11px;
+  }
+  
+  .custom-table.mobile-table .ant-table-thead > tr > th,
+  .custom-table.mobile-table .ant-table-tbody > tr > td {
+    padding: 6px 8px;
+    font-size: 11px;
+    min-width: 80px;
+  }
+  
+  .custom-table.mobile-table .ant-table-thead > tr > th:first-child,
+  .custom-table.mobile-table .ant-table-tbody > tr > td:first-child {
+    padding: 6px 8px;
+    min-width: 60px;
+  }
+  
+  .custom-table.mobile-table .user-cell {
+    min-width: 120px;
+    gap: 6px;
+  }
+  
+  .custom-table.mobile-table .user-icon-container {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .custom-table.mobile-table .user-icon {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .custom-table.mobile-table .date-cell {
+    min-width: 80px;
+    font-size: 10px;
+  }
+  
+  .custom-table.mobile-table .status-cell {
+    min-width: 70px;
+    gap: 4px;
+  }
+  
+  .custom-table.mobile-table .action-cell {
+    min-width: 40px;
+    padding: 2px;
+  }
+  
+  .custom-table.mobile-table .action-icon {
+    font-size: 14px;
+  }
+  
+  .pagination-container.mobile-pagination {
+    margin: 12px 0;
+    text-align: center;
+  }
+  
+  .pagination-container.mobile-pagination .ant-pagination-simple {
+    justify-content: center;
+  }
+  
+  .pagination-container.mobile-pagination .ant-pagination-simple .ant-pagination-simple-pager {
+    margin: 0 8px;
+  }
+  
+  .pagination-container.mobile-pagination .ant-pagination-simple .ant-pagination-simple-pager input {
+    width: 40px;
+    text-align: center;
+    font-size: 12px;
+  }
+}
+
+/* Extra Small Mobile (≤320px) */
+@media (max-width: 320px) {
+  .orders-container {
+    padding: 0 8px;
+  }
+  
+  .orders-title.mobile-title {
+    font-size: 14px;
+  }
+  
+  .orders-container .orders-header {
+    padding: 6px;
+  }
+  
+  .table-wrapper.mobile-table {
+    margin: 0 -8px;
+  }
+  
+  .custom-table.mobile-table .ant-table-thead > tr > th,
+  .custom-table.mobile-table .ant-table-tbody > tr > td {
+    padding: 4px 6px;
+    font-size: 10px;
+    min-width: 70px;
+  }
+  
+  .custom-table.mobile-table .user-cell {
+    min-width: 100px;
+  }
+  
+  .custom-table.mobile-table .date-cell,
+  .custom-table.mobile-table .status-cell {
+    min-width: 60px;
   }
 }

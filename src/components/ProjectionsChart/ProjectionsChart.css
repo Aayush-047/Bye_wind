@@ -1,0 +1,44 @@
+.projections-chart-container {
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.projections-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+  .projections-chart-container {
+    min-height: 180px;
+  }
+  
+  .projections-title {
+    font-size: 15px !important;
+    margin: 0 0 12px 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .projections-chart-container {
+    min-height: 160px;
+    padding: 16px !important;
+  }
+  
+  .projections-title {
+    font-size: 14px !important;
+    margin: 0 0 10px 0 !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .projections-chart-container {
+    min-height: 140px;
+    padding: 12px !important;
+  }
+  
+  .projections-title {
+    font-size: 13px !important;
+  }
+}

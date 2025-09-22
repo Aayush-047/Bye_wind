@@ -12,6 +12,7 @@ import './Orders.css';
 
 const Orders = ({ theme }) => {
   const { searchQuery, setCurrentScreen, getFilteredDataForCurrentScreen } = useSearch();
+  const [windowSize, setWindowSize] = useState(window.innerWidth);
   
   const [data, setData] = useOrdersData();
   const {
@@ -37,9 +38,14 @@ const Orders = ({ theme }) => {
   const isDark = theme === 'dark';
 
   useEffect(() => {
+    const handleResize = () => setWindowSize(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
     setCurrentScreen('orders');
   }, [setCurrentScreen]);
-
 
   useEffect(() => {
     if (searchQuery) {
@@ -100,27 +106,92 @@ const Orders = ({ theme }) => {
     }
   };
 
+  const getResponsiveConfig = () => {
+    if (windowSize <= 480) {
+      return {
+        size: 'small',
+        pageSize: 5,
+        scroll: { x: 600 },
+        showHeader: false,
+        pagination: {
+          simple: true,
+          size: 'small',
+          showSizeChanger: false,
+          showQuickJumper: false,
+          showTotal: false
+        }
+      };
+    } else if (windowSize <= 768) {
+      return {
+        size: 'small',
+        pageSize: 8,
+        scroll: { x: 800 },
+        showHeader: true,
+        pagination: {
+          simple: false,
+          size: 'small',
+          showSizeChanger: false,
+          showQuickJumper: false,
+          showTotal: (total) => `${total} orders`
+        }
+      };
+    } else if (windowSize <= 1024) {
+      return {
+        size: 'middle',
+        pageSize: 10,
+        scroll: { x: 1000 },
+        showHeader: true,
+        pagination: {
+          simple: false,
+          size: 'default',
+          showSizeChanger: false,
+          showQuickJumper: true,
+          showTotal: (total) => `Total ${total} orders`
+        }
+      };
+    } else {
+      return {
+        size: 'middle',
+        pageSize: 10,
+        scroll: { x: true },
+        showHeader: true,
+        pagination: {
+          simple: false,
+          showSizeChanger: false,
+          showQuickJumper: false,
+          showTotal: false
+        }
+      };
+    }
+  };
+
+  const config = getResponsiveConfig();
+  
   const columns = getOrdersTableColumns({
     isDark,
     selectedRowKeys,
     setSelectedRowKeys,
     allowedCheckboxData,
-    handleAction
+    handleAction,
+    isMobile: windowSize <= 480,
+    isTablet: windowSize <= 768
   });
 
   return (
-    <div className="orders-container" style={{ backgroundColor: isDark ? 'rgba(28,28,28, 1)' : 'inherit' }}>
-      <h3 className="orders-title" style={{ color: isDark ? 'rgba(255, 255, 255, 1)' : 'inherit' }}>
-        Order List
-        {/* 👈 OPTIONAL: Show search indicator */}
+    <div className={`orders-container ${windowSize <= 768 ? 'mobile-view' : ''}`} 
+         style={{ backgroundColor: isDark ? 'rgba(28,28,28, 1)' : 'inherit' }}>
+      <h3 className={`orders-title ${windowSize <= 480 ? 'mobile-title' : ''}`} 
+          style={{ color: isDark ? 'rgba(255, 255, 255, 1)' : 'inherit' }}>
+        {windowSize <= 480 ? 'Orders' : 'Order List'}
         {searchQuery && (
-          <span style={{ 
-            fontSize: '14px', 
+          <span className="search-indicator" style={{ 
+            fontSize: windowSize <= 480 ? '12px' : '14px', 
             fontWeight: 'normal', 
             color: isDark ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)',
-            marginLeft: '10px'
+            marginLeft: '10px',
+            display: windowSize <= 480 ? 'block' : 'inline'
           }}>
-            - Search results for "{searchQuery}"
+            {windowSize <= 480 ? `"${searchQuery}"` : `- Search results for "${searchQuery}"`}
           </span>
         )}
       </h3>
@@ -134,29 +205,30 @@ const Orders = ({ theme }) => {
         form={form}
         setIsAddModalVisible={setIsAddModalVisible}
         setSelectedRecord={setSelectedRecord}
+        isMobile={windowSize <= 480}
+        isTablet={windowSize <= 768}
       />
 
-      <Table
-        columns={columns}
-        dataSource={displayData} 
-        pagination={{
-          current: currentPage, 
-          total: displayData.length, 
-          pageSize: 10,
-          showSizeChanger: false,
-          showQuickJumper: false,
-          showTotal: false,
-          simple: false,
-          className: "pagination-container",
-          onChange: (page) => setCurrentPage(page), 
-        }}
-        className={`custom-table ${isDark ? 'dark-theme' : ''}`} 
-        showHeader={true}
-        size="middle"
-        rowSelection={undefined}
-        scroll={{ x: true }}
-        rowKey="key"
-      />
+      <div className={`table-wrapper ${windowSize <= 480 ? 'mobile-table' : ''}`}>
+        <Table
+          columns={columns}
+          dataSource={displayData} 
+          pagination={{
+            current: currentPage, 
+            total: displayData.length, 
+            pageSize: config.pageSize,
+            ...config.pagination,
+            className: `pagination-container ${windowSize <= 480 ? 'mobile-pagination' : ''}`,
+            onChange: (page) => setCurrentPage(page), 
+          }}
+          className={`custom-table ${isDark ? 'dark-theme' : ''} ${windowSize <= 480 ? 'mobile-table' : ''}`} 
+          showHeader={config.showHeader}
+          size={config.size}
+          rowSelection={windowSize <= 480 ? undefined : undefined}
+          scroll={config.scroll}
+          rowKey="key"
+        />
+      </div>
 
       <AddEditOrderModal
         visible={isAddModalVisible}

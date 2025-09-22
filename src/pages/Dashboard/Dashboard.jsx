@@ -20,7 +20,9 @@ const Dashboard = ({ theme }) => {
       <h3 className={`dashboard-title ${theme === 'dark' ? 'dark-theme' : ''}`}>
         eCommerce
       </h3>
-      <div className="dashboard-row">
+      
+      {/* Metrics and Projections Row */}
+      <div className="dashboard-row metrics-row">
         <div className="dashboard-column half-width">
           <MetricsCards theme={theme}/>
         </div>
@@ -28,20 +30,24 @@ const Dashboard = ({ theme }) => {
           <ProjectionsChart theme={theme} />
         </div>
       </div>
-      <div className="dashboard-row">
+      
+      {/* Revenue Chart and Location Map Row */}
+      <div className="dashboard-row revenue-section">
         <div className="dashboard-column three-quarters-width">
-          <RevenueChart theme={theme}  />
+          <RevenueChart theme={theme} />
         </div>
         <div className="dashboard-column quarter-width">
-          <RevenueLocationMap theme={theme}  />
+          <RevenueLocationMap theme={theme} />
         </div>
       </div>
-      <div className="dashboard-row">
+      
+      {/* Products and Sales Chart Row */}
+      <div className="dashboard-row products-section">
         <div className="dashboard-column three-quarters-width">
-          <TopSellingProducts theme={theme}  />
+          <TopSellingProducts theme={theme} />
         </div>
         <div className="dashboard-column quarter-width">
-          <TotalSalesChart theme={theme}  />
+          <TotalSalesChart theme={theme} />
         </div>
       </div>
     </div>

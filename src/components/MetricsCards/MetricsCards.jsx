@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import './MetricsCards.css';
 
 const MetricsCards = ({ theme = "light" }) => {
   const navigate = useNavigate();
@@ -34,43 +35,23 @@ const MetricsCards = ({ theme = "light" }) => {
     : 'rgba(255, 255, 255, 1)';
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '28px' }}>
+    <div className={`metrics-container ${theme}`}>
       {metrics.map((metric) => (
         <div
           key={metric.id}
-          style={{
-            backgroundColor: metric.bgColor,
-            borderRadius: '16px',
-            padding: '24px',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-            cursor: metric.clickable ? 'pointer' : 'default'
-          }}
-          onMouseEnter={(e) => {
-            if (metric.clickable) {
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-            }
-          }}
-          onMouseLeave={(e) => {
-            if (metric.clickable) {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = 'none';
-            }
-          }}
+          className={`metric-card ${metric.clickable ? 'clickable' : ''}`}
+          style={{ backgroundColor: metric.bgColor }}
           onClick={() => handleCardClick(metric)}
         >
-          <h3 style={{ margin: '0 0 12px 0', fontSize: '16px', fontWeight: '500', color: getTextColor(metric.id), lineHeight: '1.2' }}>
+          <h3 className="metric-title" style={{ color: getTextColor(metric.id) }}>
             {metric.title}
           </h3>
 
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: 'auto' }}>
-            <div style={{ fontSize: '36px', fontWeight: '700', color: getTextColor(metric.id), lineHeight: '1', letterSpacing: '-0.025em' }}>
+          <div className="metric-content">
+            <div className="metric-value" style={{ color: getTextColor(metric.id) }}>
               {metric.value}
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '14px', fontWeight: '500', color: getTextColor(metric.id), marginBottom: '4px' }}>
+            <div className="metric-change" style={{ color: getTextColor(metric.id) }}>
               <span>{metric.change}</span>
               {metric.isPositive ? <UpIcon /> : <DownIcon />}
             </div>
